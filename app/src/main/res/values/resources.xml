@@ -1,0 +1,7 @@
+<resources>
+    <!-- Estilo predeterminado de la aplicación -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Establece el color de fondo del sistema y de la barra de estado -->
+        <item name="android:statusBarColor">@android:color/black</item>
+    </style>
+</resources>

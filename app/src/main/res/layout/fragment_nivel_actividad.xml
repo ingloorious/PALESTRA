@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginBottom="70dp"
+        android:backgroundTint="#F44336"
+        android:fontFamily="sans-serif-black"
+        android:text="NIVEL DE ACTIVIDAD"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:textStyle="italic"/>
+
+    <RadioGroup
+        android:id="@+id/opciones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="1dp"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/radio_option1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/Rojo"
+            android:text="SEDENTARIO (0 a 1 día de actividad física)" />
+
+        <RadioButton
+            android:id="@+id/radio_option2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/Rojo"
+            android:text="MODERADO (2 a 4 días de actividad física)" />
+
+        <RadioButton
+            android:id="@+id/radio_option3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/Rojo"
+            android:text="ACTIVO (5 a 7 días de actividad física)" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btnContinuar"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#F44336"
+        android:elevation="4dp"
+        android:padding="16dp"
+        android:text="Continuar"
+        android:textColor="#000000"
+        app:rippleColor="#F44336"
+        app:strokeColor="#F44336" />
+    </LinearLayout>

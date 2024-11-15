@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "123987690534",
+    "project_id": "fitness-app-8296b",
+    "storage_bucket": "fitness-app-8296b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:123987690534:android:9a222abf65e929de8a92e7",
+        "android_client_info": {
+          "package_name": "com.example.gimnasio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "123987690534-fp3t03j74dqo8lg10qpv9pn8k1d5tkno.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiSp1Y5l6glF-G0TyQO8t5uHKZOI4ufxc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "123987690534-fp3t03j74dqo8lg10qpv9pn8k1d5tkno.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "123987690534-89g401bhcbkeakfd4j4l3f74608p0go2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.gimnasio"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

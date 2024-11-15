@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Gimnasio</string>
+    <string name="default_web_client_id">123987690534-fp3t03j74dqo8lg10qpv9pn8k1d5tkno.apps.googleusercontent.com</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="item_image_desc">Descripción de la imagen</string>
+</resources>

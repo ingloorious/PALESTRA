@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/common_full_open_on_phone"
+        android:title="Home" />
+    <item
+        android:id="@+id/macros"
+        android:icon="@drawable/bascula"
+        android:title="Macros" />
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/ajuste"
+        android:title="Ajustes" />
+</menu>

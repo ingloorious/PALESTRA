@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center">
+
+    <!-- Etiqueta para el NumberPicker de Altura -->
+    <TextView
+        android:id="@+id/txtAltura"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Altura (cm)"
+        android:textSize="18sp"
+        android:layout_marginBottom="8dp"
+        style="@style/narcissistStyle"/>
+
+    <!-- NumberPicker para la Altura -->
+    <android.widget.NumberPicker
+        android:id="@+id/altura"
+        android:layout_width="wrap_content"
+        android:layout_height="220dp"
+        android:layout_gravity="center"
+        android:value="175" />
+
+    <!-- Etiqueta para el NumberPicker de Peso -->
+    <TextView
+        android:id="@+id/txtPeso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Peso (kg)"
+        android:textSize="18sp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        style="@style/narcissistStyle"/>
+
+    <!-- NumberPicker para el Peso -->
+    <android.widget.NumberPicker
+        android:id="@+id/peso"
+        android:layout_width="wrap_content"
+        android:layout_height="220dp"
+        android:layout_gravity="center"
+        android:value="70"
+        />
+
+    <!-- Botón para continuar -->
+    <Button
+        android:id="@+id/btnContinuar"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#F44336"
+        android:elevation="4dp"
+        android:padding="16dp"
+        android:text="Continuar"
+        android:textColor="#000000"
+        app:rippleColor="#F44336"
+        app:strokeColor="#F44336" />
+
+
+</LinearLayout>

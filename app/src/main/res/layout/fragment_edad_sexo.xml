@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center">
+
+    <!-- Etiqueta para el NumberPicker de Altura -->
+    <TextView
+        android:id="@+id/txtAltura"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Edad"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:textStyle="italic"/>
+
+    <!-- NumberPicker para la Altura -->
+    <android.widget.NumberPicker
+        android:id="@+id/edad"
+        android:layout_width="wrap_content"
+        android:layout_height="220dp"
+        android:layout_gravity="center"
+        android:value="175" />
+
+    <!-- Etiqueta para el NumberPicker de Peso -->
+    <TextView
+        android:id="@+id/txtPeso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="Sexo"
+        android:textSize="18sp"
+        style="@style/narcissistStyle"/>
+
+    <!-- RadioGroup para el Sexo -->
+    <RadioGroup
+        android:id="@+id/sexo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/masculinoId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Masculino" />
+
+        <RadioButton
+            android:id="@+id/femeninoId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Femenino" />
+
+    </RadioGroup> <!-- Aquí estaba el problema, falta el cierre de la etiqueta RadioGroup -->
+
+    <!-- Botón para continuar -->
+    <Button
+        android:id="@+id/btnContinuar"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:elevation="4dp"
+        android:padding="16dp"
+        android:text="Continuar"
+        android:backgroundTint="#F44336"
+        android:textColor="#000000"
+        app:rippleColor="#F44336"
+        app:strokeColor="#F44336" />
+</LinearLayout>
