@@ -71,6 +71,8 @@ dependencies {
     implementation ("androidx.appcompat:appcompat:1.3.0")
 
     //GRAFICOS PARA MACROS DE GITHUB
-    implementation ("com.github.PhilJay:MPAndroidChart:3.0.3")
+    implementation("com.github.blackfizz:eazegraph:1.2.2@aar")
+    implementation ("com.nineoldandroids:library:2.4.0");
+    //implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0");
 
 }

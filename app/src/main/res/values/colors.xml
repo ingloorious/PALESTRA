@@ -5,5 +5,9 @@
     <color name="Rojo">#FF0000</color>
     <color name="Gris">#808080</color>
 
+    <color name="proteinas">#FFC107</color>
+    <color name="carbohidratos">#03A9F4</color>
+    <color name="grasas">#8BC34A</color>
+    <color name="calorias">#FF0000</color>
 
 </resources>

@@ -2,9 +2,12 @@ package CALCULADORAMACROS;
 
 public class calculadora {
 
+  public static calculadora ResultadosMacros;
   int edad , peso , frecuenciaNum , nivelActividadNum ;
   String sexo , frecuenciaEntrenamiento , nivelActividad , objetivo;
   float altura;
+
+  double caloriaDiarias ,grasa ,carbohidratos , proteinas ;
 
 
   public calculadora(int edad, int peso, String sexo, String frecuenciaEntrenamiento, String nivelActividad, String objetivo, float altura) {
@@ -17,13 +20,13 @@ public class calculadora {
     this.altura = altura;
   }
 
-  public String calcularMacros() {
-      // Calcular el TMB (Tasa Metabólica Basal)
+
+    public resultMacros calcularMacros() {
       double tmb;
       if (sexo.equalsIgnoreCase("Masculino")) {
-        tmb = 88.362 + (13.397 * peso) + (4.799 * altura * 100) - (5.677 * edad);
+        tmb = 88.362 + (13.397 * peso) + (4.799 * altura) - (5.677 * edad);
       } else {
-        tmb = 447.593 + (9.247 * peso) + (3.098 * altura * 100) - (4.330 * edad);
+        tmb = 447.593 + (9.247 * peso) + (3.098 * altura) - (4.330 * edad);
       }
 
       // Ajustar el TMB por nivel de actividad
@@ -50,18 +53,19 @@ public class calculadora {
         caloriasDiarias += caloriasDiarias * 0.2;  // Añadir un 20% para ganar músculo
       }
 
+      // Verificación de un rango razonable para las calorías diarias
+      if (caloriasDiarias < 1000 || caloriasDiarias > 4000) {
+        System.out.println("Advertencia: Calorías diarias fuera de rango: " + caloriasDiarias);
+      }
+
       // Calcular los macros
-      // Proteínas: 2g por kg de peso corporal
       double proteinas = peso * 2;  // en gramos
-      // Grasas: 25-30% de las calorías
       double grasas = caloriasDiarias * 0.25 / 9;  // 1 gramo de grasa = 9 calorías
-      // Carbohidratos: el resto de las calorías
       double carbohidratos = (caloriasDiarias - (proteinas * 4 + grasas * 9)) / 4;  // 1 gramo de carbohidrato = 4 calorías
 
-      // Crear el resultado como un string
-      return String.format("Calorías diarias: %.2f\nProteínas: %.2f g\nGrasas: %.2f g\nCarbohidratos: %.2f g",
-              caloriasDiarias, proteinas, grasas, carbohidratos);
+      return new resultMacros(caloriasDiarias, proteinas, grasas, carbohidratos);
     }
+
 
 
   public int getEdad() {

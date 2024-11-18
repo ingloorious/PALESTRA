@@ -69,7 +69,7 @@ public class pesoAltura extends Fragment {
                 alturaRecogida = altura.getValue();
 
                 // Convertir la altura de cm a metros
-                alturaReal = alturaRecogida / 10f;
+                alturaReal = alturaRecogida;
 
                 //GUARDAR DATOS
                 SharedPreferences sharedPreferences = getActivity().getSharedPreferences("DatosUsuario", Context.MODE_PRIVATE);

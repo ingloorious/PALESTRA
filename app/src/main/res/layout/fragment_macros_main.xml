@@ -1,18 +1,168 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="top|center_horizontal"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:gravity="top|center_horizontal">
+    android:padding="16dp">
 
+    <!-- Título -->
     <TextView
         android:id="@+id/title"
         style="@style/narcissistStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:gravity="center"
         android:text="MACRONUTRIENTES"
-        android:textSize="20sp" />
+        android:textSize="25sp" />
 
-</LinearLayout>
+    <!-- Gráfico de macros -->
+    <org.eazegraph.lib.charts.PieChart
+        android:id="@+id/graficoMacros"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:layout_below="@id/title"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="16dp" />
+
+    <!-- Cuadro de colores y etiquetas -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/graficoMacros"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <!-- Elemento Proteínas -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="15dp"
+                android:layout_height="match_parent"
+                android:background="@color/proteinas" />
+
+            <TextView
+                android:id="@+id/txtProteinas"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="10dp"
+                android:text="Proteínas"
+                android:textSize="14sp" />
+
+            <!-- Texto para el porcentaje de Proteínas -->
+            <TextView
+                android:id="@+id/txtProte"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:layout_gravity="end" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="15dp"
+                android:layout_height="match_parent"
+                android:background="@color/calorias" />
+
+            <TextView
+                android:id="@+id/txtCaloria"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="10dp"
+                android:text="Calorías"
+                android:textSize="14sp" />
+
+            <!-- Texto para el porcentaje de Calorías -->
+            <TextView
+                android:id="@+id/txtCalorias"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:layout_gravity="end" />
+
+        </LinearLayout>
+
+        <!-- Elemento Carbohidratos -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="15dp"
+                android:layout_height="match_parent"
+                android:background="@color/carbohidratos" />
+
+            <TextView
+                android:id="@+id/txtCarbohidratos"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="10dp"
+                android:text="Carbohidratos"
+                android:textSize="14sp" />
+
+            <!-- Texto para el porcentaje -->
+            <TextView
+                android:id="@+id/txtCarbs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:layout_gravity="end" />
+        </LinearLayout>
+
+        <!-- Elemento Grasas -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="15dp"
+                android:layout_height="match_parent"
+                android:background="@color/grasas" />
+
+            <TextView
+                android:id="@+id/txtGrasa"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="10dp"
+                android:text="Grasas"
+                android:textSize="14sp" />
+
+            <!-- Texto para el porcentaje de Grasas -->
+            <TextView
+                android:id="@+id/txtGrasas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:layout_gravity="end" />
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+</RelativeLayout>
