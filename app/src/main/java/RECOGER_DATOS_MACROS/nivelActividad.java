@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import com.example.gimnasio.R;
 
+import SQLITE.BBDD;
+
 public class nivelActividad extends Fragment {
 
     RadioGroup nivelAct ;
@@ -29,7 +31,7 @@ public class nivelActividad extends Fragment {
 
     Button continuar ;
 
-
+    BBDD base ;
 
     public nivelActividad() {
 
@@ -51,6 +53,7 @@ public class nivelActividad extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_nivel_actividad, container, false);
+        base =  new BBDD(getActivity());
         nivelAct = view.findViewById(R.id.opciones);
         continuar = view.findViewById(R.id.btnContinuar);
 
@@ -75,6 +78,8 @@ public class nivelActividad extends Fragment {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("ACTIVIDAD", recogerValor);
                 editor.apply();
+
+
 
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragmentContainerView, new frecuenciaEntreno()); // Cambiar a tu siguiente fragmento

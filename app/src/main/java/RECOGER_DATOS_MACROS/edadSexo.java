@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import com.example.gimnasio.R;
 
+import SQLITE.BBDD;
+
 
 public class edadSexo extends Fragment {
 
@@ -28,6 +30,8 @@ public class edadSexo extends Fragment {
     String sexoAsignado;
     int edadAsignada;
     int idSeleccionado;
+
+    BBDD base ;
     public edadSexo() {
 
     }
@@ -48,6 +52,7 @@ public class edadSexo extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_edad_sexo, container, false);
+        base = new BBDD(getActivity());
         continuar = view.findViewById(R.id.btnContinuar);
 
         sexo = view.findViewById(R.id.sexo);
@@ -68,12 +73,16 @@ public class edadSexo extends Fragment {
                     sexoAsignado = selectedRadioButton.getText().toString();
                     edadAsignada = edad.getValue();
 
+
+
                     //GUARDAR DATOS
                     SharedPreferences sharedPreferences = getActivity().getSharedPreferences("DatosUsuario", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putInt("EDAD", edadAsignada);
                     editor.putString("SEXO", sexoAsignado);
                     editor.apply();
+
+                    //base.insertar_Edad_Sexo(edadAsignada , sexoAsignado);
 
                     FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
                     transaction.replace(R.id.fragmentContainerView, new nivelActividad()); // Cambiar a tu siguiente fragmento

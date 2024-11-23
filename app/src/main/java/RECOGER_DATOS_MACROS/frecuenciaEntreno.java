@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import com.example.gimnasio.R;
 
+import SQLITE.BBDD;
+
 
 public class frecuenciaEntreno extends Fragment {
 
@@ -25,6 +27,8 @@ public class frecuenciaEntreno extends Fragment {
     int indice ;
     Button continuar;
     String obtenido ;
+
+    BBDD base ;
 
 
     public frecuenciaEntreno() {
@@ -48,7 +52,7 @@ public class frecuenciaEntreno extends Fragment {
         View view = inflater.inflate(R.layout.fragment_frecuencia_entreno, container, false);
         opciones = view.findViewById(R.id.opciones);
         continuar = view.findViewById(R.id.btnContinuar);
-
+        base = new BBDD(getActivity());
         continuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,6 +65,8 @@ public class frecuenciaEntreno extends Fragment {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("FRECUENCIA", obtenido);
                     editor.apply();
+
+                   // base.insertar_Frecuencia(obtenido);
 
 
                     FragmentTransaction transaction = getParentFragmentManager().beginTransaction();

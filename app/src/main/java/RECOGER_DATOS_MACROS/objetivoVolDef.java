@@ -18,6 +18,8 @@ import android.widget.Toast;
 import com.example.gimnasio.R;
 import com.example.gimnasio.macrosMain;
 
+import SQLITE.BBDD;
+
 
 public class objetivoVolDef extends Fragment {
     RadioGroup opciones ;
@@ -29,6 +31,8 @@ public class objetivoVolDef extends Fragment {
     int indice;
 
     Button continuar ;
+
+    BBDD base ;
 
     public objetivoVolDef() {
         // Required empty public constructor
@@ -51,6 +55,7 @@ public class objetivoVolDef extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_objetivo_vol_def ,container, false);
+        base = new BBDD(getActivity());
         opciones = view.findViewById(R.id.opciones);
         continuar = view.findViewById(R.id.btnContinuar);
 
@@ -73,6 +78,8 @@ public class objetivoVolDef extends Fragment {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("OBJETIVO", obtenido);
                     editor.apply();
+
+                   //base.insertar_Objetivo(obtenido);
 
                     FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
                     transaction.replace(R.id.fragmentContainerView, new macrosMain()); // Cambiar a tu siguiente fragmento

@@ -1,5 +1,7 @@
 package com.example.gimnasio;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -44,6 +46,7 @@ public class MacrosFragment extends Fragment {
         pedirDatos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 // Cambiar la altura del fragmentContainerView para que ocupe todo el espacio restante
                 fragmentContainerView.setVisibility(View.VISIBLE);
                 ViewGroup.LayoutParams params = fragmentContainerView.getLayoutParams();

@@ -16,6 +16,8 @@ import android.widget.Button;
 import com.example.gimnasio.MacrosFragment;
 import com.example.gimnasio.R;
 
+import SQLITE.BBDD;
+
 public class pesoAltura extends Fragment {
 
     private NumberPicker peso, altura;
@@ -23,6 +25,8 @@ public class pesoAltura extends Fragment {
 
     int pesoRecogido, alturaRecogida;
     float alturaReal;
+
+    BBDD base ;
 
     public pesoAltura() {
         // Constructor vacío requerido para fragmentos
@@ -44,6 +48,7 @@ public class pesoAltura extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Infla la vista del fragmento
         View view = inflater.inflate(R.layout.fragment_peso_altura, container, false);
+        base = new BBDD(getActivity());
 
         // Inicialización de vistas
         btnContinuar = view.findViewById(R.id.btnContinuar);
@@ -77,6 +82,8 @@ public class pesoAltura extends Fragment {
                 editor.putInt("PESO", pesoRecogido);
                 editor.putFloat("ALTURA", alturaReal);
                 editor.apply();
+
+               //base.insertar_Peso_Altura(pesoRecogido , alturaReal);
 
                 // Realizar la transición al siguiente fragmento
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
