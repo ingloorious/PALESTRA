@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -22,12 +23,18 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Firebase;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+
+import REGISTRO.Registro;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     SignInButton botonLogeoGoogle;
     TextView mRespu;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,12 +67,35 @@ public class MainActivity extends AppCompatActivity {
         botonLogeoGoogle = findViewById(R.id.loginGoogle);
         mAuth = FirebaseAuth.getInstance();
         mRespu = findViewById(R.id.txtmRespu);
+        login = findViewById(R.id.btnLogin);
+        registro = findViewById(R.id.btnRegistro);
+        usuario = findViewById(R.id.txtEmail);
+        password = findViewById(R.id.txtPassword);
+
+        registro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goAuth = new Intent(MainActivity.this , Registro.class);
+                startActivity(goAuth);
+            }
+        });
+
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String mail = usuario.getText().toString();
+                String pass = password.getText().toString();
+                loginCorreoContra(mail , pass);
+
+            }
+        });
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         botonLogeoGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-             signIn();
+
+                signIn();
             }
         });
 
@@ -87,6 +118,49 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+    public void loginCorreoContra(String usuarios , String pass) {
+        if (usuarios != null && !usuarios.isEmpty() && pass != null && !pass.isEmpty()) {
+
+            mAuth.signInWithEmailAndPassword(usuarios, pass).addOnCompleteListener(this, task -> {
+                if (task.isSuccessful()) {
+                    // El registro fue exitoso
+                    Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show();
+
+                    FirebaseUser user = mAuth.getCurrentUser();
+
+                    String correoAcc = user.getEmail();
+
+                    ProviderType proveedor = ProviderType.BASIC;
+
+                    irHome();
+
+                } else {
+                    if (task.getException() != null) {
+                        String errorMessage;
+                        try {
+                            throw task.getException(); // Lanza la excepción para manejarla
+                        } catch (FirebaseAuthWeakPasswordException e) {
+                            errorMessage = "La contraseña es demasiado débil. Usa al menos 6 caracteres.";
+                        } catch (FirebaseAuthInvalidCredentialsException e) {
+                            errorMessage = "El correo electrónico está mal formateado.";
+                        } catch (FirebaseAuthUserCollisionException e) {
+                            errorMessage = "El correo electrónico ya está registrado.";
+                        } catch (Exception e) {
+                            errorMessage = "Error desconocido: " + e.getMessage();
+                        }
+
+                        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(this, "Error desconocido", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+
+    }
+
+    ;
 
 
     private void firebaseAuthWithGoogle(String idToken) {
@@ -133,9 +207,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void irHome() {
-        Intent intent = new Intent(MainActivity.this , HomeActivity.class);
+        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private void volverLogin(String email, ProviderType proveedor) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("EMAIL", email);
+        intent.putExtra("PROVIDER", proveedor);
+        startActivity(intent);
+        finish();
+    }
+
+    public enum ProviderType {
+        BASIC,
+        GOOGLE
     }
 
 }

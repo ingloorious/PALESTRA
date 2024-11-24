@@ -20,32 +20,32 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
-            android:id="@+id/txtNombre"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="text"
-            android:text="Nombre" />
-
-        <EditText
             android:id="@+id/txtCorreo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="text"
-            android:text="Correo Electrónico" />
+            android:text="ampante2002@hotmail.com" />
 
         <EditText
-            android:id="@+id/txtTelefono"
+            android:id="@+id/txtContra"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="text"
-            android:text="Teléfono" />
+            android:text="Deadreams20" />
+
+        <EditText
+            android:id="@+id/txtName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:text="Jose Daniel" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="409dp"
+        android:layout_width="0dp"
         android:layout_height="198dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="1dp"
@@ -61,17 +61,18 @@
             android:id="@+id/txtTitulo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:layout_weight="1"
             android:text="CREA TU CUENTA"
-            android:textColor="#000000"
+            android:textColor="#DD2C00"
             android:textSize="24sp"
             android:textStyle="bold|italic" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="409dp"
+        android:layout_width="0dp"
         android:layout_height="198dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="1dp"
@@ -80,15 +81,17 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layoutLienzo">
+        app:layout_constraintTop_toBottomOf="@+id/layoutLienzo"
+        app:layout_constraintVertical_bias="0.0">
 
         <Button
             android:id="@+id/btnSiguiente"
             style="@style/narcissistStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="30dp"
             android:layout_marginBottom="20dp"
             android:backgroundTint="#F44336"
             android:text="Siguiente"

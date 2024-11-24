@@ -49,7 +49,7 @@
             android:id="@+id/txtEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="EMAIL"
+            android:hint="correo"
             android:inputType="textEmailAddress" />
 
         <EditText
@@ -57,7 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="PASSWORD"
+            android:hint="contraseña"
             android:inputType="textPassword" />
 
         <TextView
