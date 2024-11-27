@@ -5,19 +5,22 @@ import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import AJUSTES.ajustesAdapter;
 import AJUSTES.ajustesClass;
-
+import AJUSTES.pantallasClase.informacion_personal;
+import RECOGER_DATOS_MACROS.nivelActividad;
 
 
 public class AjustesFragment extends Fragment {
@@ -53,18 +56,38 @@ public class AjustesFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.recyclerViewAjustes);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        List<ajustesClass> ajustesList = new ArrayList<>();
-        ajustesList.add(new ajustesClass("Información personal", R.drawable.ic_launcher_foreground));
-        ajustesList.add(new ajustesClass("Notificaciones", R.drawable.ic_launcher_foreground));
-        ajustesList.add(new ajustesClass("Guías", R.drawable.ic_launcher_foreground));
-        ajustesList.add(new ajustesClass("Suscripciones", R.drawable.ic_launcher_foreground));
-        ajustesList.add(new ajustesClass("Configuración de audio", R.drawable.ic_launcher_foreground));
-        ajustesList.add(new ajustesClass("Ajustes de comida", R.drawable.ic_launcher_foreground));
-        ajustesList.add(new ajustesClass("Preguntas frecuentes", R.drawable.ic_launcher_foreground));
-        ajustesList.add(new ajustesClass("Contáctanos", R.drawable.ic_launcher_foreground));
+        List<Object> items = new ArrayList<>();
+        items.add("Cuenta");
+        items.add(new ajustesClass("Información personal", R.drawable.ic_infopersonal));
+        items.add("Preferencias");
+        items.add(new ajustesClass("Notificaciones", R.drawable.ic_notificacion));
+        items.add(new ajustesClass("Ajustes de comida", R.drawable.ajuste));
+        items.add("Soporte");
+        items.add(new ajustesClass("Contáctanos", R.drawable.ic_contactar));
+        items.add(new ajustesClass("Preguntas frecuentes", R.drawable.ic_legal));
 
-        ajustesAdapter adapter = new ajustesAdapter(ajustesList, item -> {
-            // Manejar clics en los elementos
+        ajustesAdapter adapter = new ajustesAdapter(items, item -> {
+            if (item instanceof ajustesClass) {
+                ajustesClass ajuste = (ajustesClass) item;
+
+
+
+                if ("Notificaciones".equals(ajuste.getTitulo())) {
+
+                    Toast.makeText(getContext(), "Botón de Notificaciones pulsado", Toast.LENGTH_SHORT).show();
+
+                } else if ("Ajustes de comida".equals(ajuste.getTitulo())) {
+
+                    Toast.makeText(getContext(), "Botón de Ajustes de comida pulsado", Toast.LENGTH_SHORT).show();
+
+                } else if("Información personal".equals(ajuste.getTitulo())) {
+
+                    FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                    transaction.replace(R.id.frame_layout, new informacion_personal());
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
+            }
         });
 
         recyclerView.setAdapter(adapter);

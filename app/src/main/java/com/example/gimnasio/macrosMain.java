@@ -32,9 +32,9 @@ public class macrosMain extends Fragment {
     private String sexo , frecuenciaEntreno , nivelActividad , objetivo;
 
     String carbos , calorias , grasas , prote;
-    PieChart grafico ;
-    BarChart barraMacros;
-    TextView caloPorcentaje , carbsPorcentaje , protePorcentaje , grasaPorcentaje;
+    public PieChart grafico ;
+    public BarChart barraMacros;
+    public TextView caloPorcentaje , carbsPorcentaje , protePorcentaje , grasaPorcentaje;
 
     BBDD base ;
     public macrosMain() {
