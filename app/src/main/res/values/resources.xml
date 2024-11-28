@@ -1,13 +1,9 @@
+
 <resources>
-    <!-- Estilo predeterminado de la aplicación sin ActionBar y pantalla completa -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Hacer que la barra de estado sea transparente -->
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <!-- Activar el modo de pantalla completa -->
-        <item name="android:windowFullscreen">true</item>
-        <!-- Establecer el color de fondo de la ventana en gris oscuro -->
-        <item name="android:windowBackground">@drawable/gradient_background</item>
-        <!-- Color de texto principal (opcional, para que el texto sea blanco si es necesario) -->
-        <item name="android:textColorPrimary">@android:color/white</item>
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
 </resources>

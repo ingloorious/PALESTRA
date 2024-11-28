@@ -19,6 +19,9 @@ import java.util.List;
 
 import AJUSTES.ajustesAdapter;
 import AJUSTES.ajustesClass;
+import AJUSTES.comidasAjustes.comidaAjustesClase;
+import AJUSTES.contacto.contactoClase;
+import AJUSTES.notificaciones.notificacionClass;
 import AJUSTES.pantallasClase.informacion_personal;
 import RECOGER_DATOS_MACROS.nivelActividad;
 
@@ -74,11 +77,17 @@ public class AjustesFragment extends Fragment {
 
                 if ("Notificaciones".equals(ajuste.getTitulo())) {
 
-                    Toast.makeText(getContext(), "Botón de Notificaciones pulsado", Toast.LENGTH_SHORT).show();
+                    FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                    transaction.replace(R.id.frame_layout, new notificacionClass());
+                    transaction.addToBackStack(null);
+                    transaction.commit();
 
                 } else if ("Ajustes de comida".equals(ajuste.getTitulo())) {
 
-                    Toast.makeText(getContext(), "Botón de Ajustes de comida pulsado", Toast.LENGTH_SHORT).show();
+                    FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                    transaction.replace(R.id.frame_layout, new comidaAjustesClase());
+                    transaction.addToBackStack(null);
+                    transaction.commit();
 
                 } else if("Información personal".equals(ajuste.getTitulo())) {
 
@@ -86,7 +95,15 @@ public class AjustesFragment extends Fragment {
                     transaction.replace(R.id.frame_layout, new informacion_personal());
                     transaction.addToBackStack(null);
                     transaction.commit();
-                }
+                } else if("Contáctanos".equals(ajuste.getTitulo())) {
+
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.frame_layout, new contactoClase());
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+
+
             }
         });
 
