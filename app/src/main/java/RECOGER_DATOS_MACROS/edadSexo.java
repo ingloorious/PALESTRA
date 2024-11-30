@@ -31,6 +31,8 @@ public class edadSexo extends Fragment {
     int edadAsignada;
     int idSeleccionado;
 
+
+
     BBDD base ;
     public edadSexo() {
 

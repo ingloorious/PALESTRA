@@ -10,9 +10,9 @@
         android:layout_height="wrap_content"
         android:background="@color/Gris"
         android:elevation="4dp"
-        app:titleTextColor="@color/white"
         android:title="COMIDA"
-        app:titleMargin="0dp" />
+        app:titleMargin="0dp"
+        app:titleTextColor="@color/white" />
 
     <LinearLayout
         android:id="@+id/linear1"
@@ -29,6 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:fontFamily="sans-serif"
+            android:paddingLeft="16dp"
             android:text="Desayuno"
             android:textColor="@color/white"
             android:textSize="24sp"
@@ -63,6 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:fontFamily="sans-serif"
+            android:paddingLeft="16dp"
             android:text="Almuerzo"
             android:textColor="@color/white"
             android:textSize="24sp"
@@ -97,6 +99,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:fontFamily="sans-serif"
+            android:paddingLeft="16dp"
             android:text="Comida"
             android:textColor="@color/white"
             android:textSize="24sp"
@@ -131,6 +134,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:fontFamily="sans-serif"
+            android:paddingLeft="16dp"
             android:text="Merienda"
             android:textColor="@color/white"
             android:textSize="24sp"
@@ -165,6 +169,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:fontFamily="sans-serif"
+            android:paddingLeft="16dp"
             android:text="Cena"
             android:textColor="@color/white"
             android:textSize="24sp"

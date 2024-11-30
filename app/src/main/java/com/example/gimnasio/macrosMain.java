@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -13,30 +14,46 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.eazegraph.lib.charts.BarChart;
 import org.eazegraph.lib.charts.PieChart;
 import org.eazegraph.lib.models.BarModel;
 import org.eazegraph.lib.models.PieModel;
+
+import AJUSTES.contacto.datosPeticion;
 import CALCULADORAMACROS.calculadora;
 import CALCULADORAMACROS.resultMacros;
 import SQLITE.BBDD;
+import RECOGER_DATOS_MACROS.macro;
 
 
 public class macrosMain extends Fragment {
 
     calculadora calc;
     private int peso;
-    private float altura ;
+    private float altura;
     private int edad;
-    private String sexo , frecuenciaEntreno , nivelActividad , objetivo;
+    private String sexo, frecuenciaEntreno, nivelActividad, objetivo;
 
-    String carbos , calorias , grasas , prote;
-    public PieChart grafico ;
+    String carbos, calorias, grasas, prote;
+    public PieChart grafico;
     public BarChart barraMacros;
-    public TextView caloPorcentaje , carbsPorcentaje , protePorcentaje , grasaPorcentaje;
+    public TextView caloPorcentaje, carbsPorcentaje, protePorcentaje, grasaPorcentaje;
 
-    BBDD base ;
+    BBDD base;
+
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
+
+
     public macrosMain() {
 
     }
@@ -59,6 +76,8 @@ public class macrosMain extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_macros_main, container, false);
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
         base = new BBDD(getActivity());
         Context context = getActivity().getApplicationContext();
         grafico = view.findViewById(R.id.graficoMacros);
@@ -74,22 +93,21 @@ public class macrosMain extends Fragment {
         int colorCalorias = ContextCompat.getColor(context, R.color.calorias);
 
 
-        SharedPreferences recogerDatos = getActivity().getSharedPreferences("DatosUsuario" , Context.MODE_PRIVATE);
+        SharedPreferences recogerDatos = getActivity().getSharedPreferences("DatosUsuario", Context.MODE_PRIVATE);
         peso = recogerDatos.getInt("PESO", 0);
         altura = recogerDatos.getFloat("ALTURA", 0f);
         edad = recogerDatos.getInt("EDAD", 0);
         sexo = recogerDatos.getString("SEXO", "");
-        frecuenciaEntreno = recogerDatos.getString("FRECUENCIA" , "");
-        nivelActividad = recogerDatos.getString("ACTIVIDAD" , "");
-        objetivo = recogerDatos.getString("OBJETIVO" , "");
+        frecuenciaEntreno = recogerDatos.getString("FRECUENCIA", "");
+        nivelActividad = recogerDatos.getString("ACTIVIDAD", "");
+        objetivo = recogerDatos.getString("OBJETIVO", "");
 
         //base.limpiar();
         base.getWritableDatabase();
-        base.InsertarDatos(peso , altura , edad , sexo , frecuenciaEntreno , nivelActividad , objetivo);
-
-
+        base.InsertarDatos(peso, altura, edad, sexo, frecuenciaEntreno, nivelActividad, objetivo);
 
         calculadora calc = new calculadora(edad, peso, sexo, frecuenciaEntreno, nivelActividad, objetivo, altura);
+        GuardarDatos(calc);
         resultMacros resultados = calc.calcularMacros();
 
         System.out.println(resultados);
@@ -110,7 +128,7 @@ public class macrosMain extends Fragment {
             // Calcular porcentajes
             float porcentajeProte = (proteInt * 100.0f) / total;
             float porcentajeCarbos = (carbosInt * 100.0f) / total;
-            float porcentajeCalorias = (caloriasInt* 100.0f) / total;
+            float porcentajeCalorias = (caloriasInt * 100.0f) / total;
             float porcentajeGrasas = (grasasInt * 100.0f) / total;
 
             int protePorcentajeInt = (int) porcentajeProte;
@@ -149,8 +167,58 @@ public class macrosMain extends Fragment {
         barraMacros.startAnimation();
 
 
-
-
         return view;
     }
+
+    public void GuardarDatos(calculadora datos) {
+        try {
+            if (mAuth.getCurrentUser() != null) {
+                String correo = mAuth.getCurrentUser().getEmail(); // Obtén el correo del usuario actual
+                CollectionReference coleccion = db.collection("macros");
+
+                // Consulta para verificar si el correo ya existe en la colección
+                coleccion.whereEqualTo("email", correo)
+                        .get()
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                if (!task.getResult().isEmpty()) {
+                                    // Si la consulta tiene resultados, significa que ya existe un registro con el correo
+                                    Toast.makeText(getActivity(), "El correo ya tiene datos guardados.", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    // Si no existen registros, procedemos a guardar
+                                    macro data = new macro(
+                                            datos.getEdad(),
+                                            datos.getPeso(),
+                                            datos.getAltura(),
+                                            datos.getSexo(),
+                                            datos.getFrecuenciaEntrenamiento(),
+                                            datos.getNivelActividad(),
+                                            datos.getObjetivo(),
+                                            correo
+                                    );
+
+                                    coleccion.add(data)
+                                            .addOnSuccessListener(documentReference -> {
+                                                Toast.makeText(getActivity(), "Datos guardados correctamente.", Toast.LENGTH_SHORT).show();
+                                            })
+                                            .addOnFailureListener(e -> {
+                                                Toast.makeText(getActivity(), "Error al guardar los datos.", Toast.LENGTH_SHORT).show();
+                                            });
+                                }
+                            } else {
+                                // Error al realizar la consulta
+                                Exception e = task.getException();
+                                if (e != null) {
+                                    e.printStackTrace();
+                                }
+                                Toast.makeText(getActivity(), "Error al verificar datos existentes.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(getActivity(), "Se produjo un error.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }

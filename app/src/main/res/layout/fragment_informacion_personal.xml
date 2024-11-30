@@ -139,5 +139,14 @@
             android:layout_marginBottom="20dp"
             android:hint="Introduce tu correo"
             android:inputType="textEmailAddress" />
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/Rojo"
+            style="@style/narcissistStyle"
+            android:text="Guardar"/>
+
     </LinearLayout>
 </LinearLayout>

@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -40,6 +41,7 @@ import com.example.gimnasio.macrosMain;
 
 public class informacion_personal extends Fragment {
 
+    Button save ;
     private Toolbar barra;
 
     macrosMain macrosMainClase;
@@ -86,15 +88,9 @@ public class informacion_personal extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_informacion_personal, container, false);
-
         SharedPreferences recogerDatosPrevios = getActivity().getSharedPreferences("DatosUsuario", Context.MODE_PRIVATE);
         peso = recogerDatosPrevios.getInt("PESO", 0);
         altura = recogerDatosPrevios.getFloat("ALTURA", 0f);
-        edad = recogerDatosPrevios.getInt("EDAD", 0);
-        sexo = recogerDatosPrevios.getString("SEXO", "");
-        frecuenciaEntreno = recogerDatosPrevios.getString("FRECUENCIA", "");
-        nivelActividad = recogerDatosPrevios.getString("ACTIVIDAD", "");
-        objetivo = recogerDatosPrevios.getString("OBJETIVO", "");
 
         barra = view.findViewById(R.id.toolbar);
         etNombre = view.findViewById(R.id.etNombre);
@@ -105,9 +101,25 @@ public class informacion_personal extends Fragment {
         txtpesoValor = view.findViewById(R.id.tvValorPeso);
         contenedorAltura = view.findViewById(R.id.linearAltura);
         contenedorPeso = view.findViewById(R.id.linearPeso);
+        save = view.findViewById(R.id.btnSave);
 
         txtAlturaValor.setText(String.valueOf((int) altura));
         txtpesoValor.setText(String.valueOf(peso));
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences actualizarValores = getActivity().getSharedPreferences("DatosUsuario" , Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = actualizarValores.edit();
+                float alt = Float.parseFloat(txtAlturaValor.getText().toString());
+                int pesaje = Integer.parseInt(txtPeso.getText().toString());
+                editor.putFloat("ALTURA" , alt/100);
+                editor.putInt("PESO" , pesaje);
+                editor.apply();
+
+                calcular();
+            }
+        });
 
         etCorreoElectronico.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -218,7 +230,7 @@ public class informacion_personal extends Fragment {
         return view;
     }
 
-    private void calcular(int pesoRecogido, float altura) {
+    private void calcular() {
 
         macrosMainClase = new macrosMain();
 
