@@ -94,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
         botonLogeoGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 signIn();
             }
         });
@@ -105,15 +104,14 @@ public class MainActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
-                // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account.getIdToken());
             } catch (ApiException e) {
-                // Google Sign In failed, update UI appropriately
+                //error si no se logeo bien
                 mRespu.setText(e.getMessage().toString());
             }
         }

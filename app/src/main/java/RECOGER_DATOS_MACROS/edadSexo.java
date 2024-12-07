@@ -75,8 +75,6 @@ public class edadSexo extends Fragment {
                     sexoAsignado = selectedRadioButton.getText().toString();
                     edadAsignada = edad.getValue();
 
-
-
                     //GUARDAR DATOS
                     SharedPreferences sharedPreferences = getActivity().getSharedPreferences("DatosUsuario", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -87,7 +85,7 @@ public class edadSexo extends Fragment {
                     //base.insertar_Edad_Sexo(edadAsignada , sexoAsignado);
 
                     FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                    transaction.replace(R.id.fragmentContainerView, new nivelActividad()); // Cambiar a tu siguiente fragmento
+                    transaction.replace(R.id.fragmentContainerView, new nivelActividad());
                     transaction.addToBackStack(null);
                     transaction.commit();
 

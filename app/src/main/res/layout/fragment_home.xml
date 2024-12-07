@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-black"
         android:text="RUTINAS"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textAlignment="center"
         android:textSize="34sp"
         android:textStyle="bold"

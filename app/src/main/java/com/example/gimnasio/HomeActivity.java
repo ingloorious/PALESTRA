@@ -29,6 +29,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.Map;
 
 import RECOGER_DATOS_MACROS.frecuenciaEntreno;
+import RUTINAPERSONALIZADA.personalizarRutinaClase;
 import SQLITE.BBDD;
 
 public class HomeActivity extends AppCompatActivity {
@@ -100,6 +101,8 @@ public class HomeActivity extends AppCompatActivity {
                 exitAnim = R.anim.slide_to_izquierda;
                 popEnterAnim = R.anim.slide_desde_izquierda;
                 popExitAnim = R.anim.slide_to_derecha;
+            }else if(item.getItemId() == R.id.RutinaRegistro) {
+                fragment = new personalizarRutinaClase();
             }
 
             // Verifica si el fragmento actual es el mismo que el fragmento que se quiere cargar

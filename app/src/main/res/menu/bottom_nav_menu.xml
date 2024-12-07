@@ -8,8 +8,14 @@
         android:id="@+id/macros"
         android:icon="@drawable/bascula"
         android:title="Macros" />
+
+    <item
+        android:id="@+id/RutinaRegistro"
+        android:icon="@drawable/rutinaspersonalizar"
+        android:title="Ajustes" />
     <item
         android:id="@+id/settings"
         android:icon="@drawable/ajuste"
         android:title="Ajustes" />
+
 </menu>

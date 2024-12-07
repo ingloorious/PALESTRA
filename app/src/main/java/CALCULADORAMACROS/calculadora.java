@@ -30,7 +30,7 @@ public class calculadora {
       }
 
       // Ajustar el TMB por nivel de actividad
-      double factorActividad = 1.2; // Valor por defecto para sedentario
+      double factorActividad = 1.2;
       switch (nivelActividad.toLowerCase()) {
         case "sedentario":
           factorActividad = 1.2;

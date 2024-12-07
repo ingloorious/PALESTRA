@@ -79,10 +79,8 @@ public class objetivoVolDef extends Fragment {
                     editor.putString("OBJETIVO", obtenido);
                     editor.apply();
 
-                   //base.insertar_Objetivo(obtenido);
-
                     FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                    transaction.replace(R.id.fragmentContainerView, new macrosMain()); // Cambiar a tu siguiente fragmento
+                    transaction.replace(R.id.fragmentContainerView, new macrosMain());
                     transaction.addToBackStack(null);
                     transaction.commit();
                 } else {

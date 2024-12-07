@@ -58,7 +58,6 @@ public class AjustesFragment extends Fragment {
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerViewAjustes);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
         List<Object> items = new ArrayList<>();
         items.add("Cuenta");
         items.add(new ajustesClass("Información personal", R.drawable.ic_infopersonal));

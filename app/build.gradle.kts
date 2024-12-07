@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.gimnasio"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
@@ -39,11 +39,12 @@ android {
 }
 
 dependencies {
-    // GOOGLE DEPENDENCIAS
+    // GOOGLE LIBRERIAS
     implementation("com.google.android.gms:play-services-auth:21.0.0")
     implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
     implementation("com.google.firebase:firebase-auth")
     implementation ("com.google.firebase:firebase-firestore:24.6.0")
+    implementation ("com.firebaseui:firebase-ui-firestore:7.2.0")
     implementation("com.google.firebase:firebase-analytics")
 
     // DEFAULT
@@ -74,5 +75,8 @@ dependencies {
     //GRAFICOS PARA MACROS DE GITHUB
     implementation("com.github.blackfizz:eazegraph:1.2.2@aar")
     implementation ("com.nineoldandroids:library:2.4.0");
+
+
+
 
 }

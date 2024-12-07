@@ -83,11 +83,9 @@ public class pesoAltura extends Fragment {
                 editor.putFloat("ALTURA", alturaReal);
                 editor.apply();
 
-               //base.insertar_Peso_Altura(pesoRecogido , alturaReal);
-
-                // Realizar la transición al siguiente fragmento
+                // pasar al otro fragmento
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragmentContainerView, new edadSexo()); // Cambiar a tu siguiente fragmento
+                transaction.replace(R.id.fragmentContainerView, new edadSexo()); // cambiar de ventana
                 transaction.addToBackStack(null);
                 transaction.commit();
             }
