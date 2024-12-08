@@ -60,10 +60,10 @@ public class AjustesFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         List<Object> items = new ArrayList<>();
         items.add("Cuenta");
-        items.add(new ajustesClass("Información personal", R.drawable.ic_infopersonal));
+        items.add(new ajustesClass("Información personal", R.drawable.infopersonal));
         items.add("Preferencias");
-        items.add(new ajustesClass("Notificaciones", R.drawable.ic_notificacion));
-        items.add(new ajustesClass("Ajustes de comida", R.drawable.ajuste));
+        items.add(new ajustesClass("Notificaciones", R.drawable.campana));
+        items.add(new ajustesClass("Ajustes de comida", R.drawable.comidaajustes));
         items.add("Soporte");
         items.add(new ajustesClass("Contáctanos", R.drawable.ic_contactar));
         items.add(new ajustesClass("Preguntas frecuentes", R.drawable.ic_legal));

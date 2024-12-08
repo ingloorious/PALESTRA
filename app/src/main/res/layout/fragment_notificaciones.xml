@@ -10,9 +10,9 @@
         android:layout_height="wrap_content"
         android:background="@color/Gris"
         android:elevation="4dp"
-        app:titleTextColor="@color/white"
         android:title="Ajustes"
-        app:titleMargin="0dp" />
+        app:titleMargin="0dp"
+        app:titleTextColor="@color/white" />
 
     <LinearLayout
         android:id="@+id/linearAltura"

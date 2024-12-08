@@ -7,14 +7,26 @@
     android:layout_marginBottom="8dp"
     android:background="?android:attr/selectableItemBackground">
 
-    <!-- Rutina -->
+
+    <TextView
+        android:id="@+id/textViewFecha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fecha"
+        style="@style/narcissistStyle"
+        android:textSize="18sp"
+        android:textColor="@color/Rojo"
+        android:textStyle="bold"
+        android:layout_marginBottom="4dp"/>
+
     <TextView
         android:id="@+id/textViewNombreRutina"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nombre de la Rutina"
-        android:textSize="16sp"
+        style="@style/narcissistStyle"
         android:textColor="@color/Rojo"
+        android:textSize="16sp"
         android:layout_marginBottom="4dp"/>
 
 </LinearLayout>

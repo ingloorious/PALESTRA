@@ -1,5 +1,6 @@
 package RUTINAPERSONALIZADA;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,17 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gimnasio.R;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.Query;
 
 import java.util.List;
 
 public class RutinasAdaptador extends RecyclerView.Adapter<RutinasAdaptador.RutinaViewHolder> {
     private List<Rutina> mRutinas;
+    private Context context;
+    private OnRutinaClickListener onRutinaClickListener;
 
-    // Constructor del adaptador
-    public RutinasAdaptador(List<Rutina> rutinas) {
+    public interface OnRutinaClickListener {
+        void onRutinaClick(int position);
+    }
+
+    public RutinasAdaptador(Context context, List<Rutina> rutinas , OnRutinaClickListener listener) {
+        this.context = context;
         this.mRutinas = rutinas;
+        this.onRutinaClickListener = listener;
     }
 
     @NonNull
@@ -32,7 +38,14 @@ public class RutinasAdaptador extends RecyclerView.Adapter<RutinasAdaptador.Ruti
     @Override
     public void onBindViewHolder(@NonNull RutinaViewHolder holder, int position) {
         Rutina rutina = mRutinas.get(position);
+        holder.textviewFecha.setText(rutina.getFecha());
         holder.textViewNombreRutina.setText(rutina.getNombre());
+
+        holder.itemView.setOnClickListener(v -> {
+            if (onRutinaClickListener != null) {
+                onRutinaClickListener.onRutinaClick(position);
+            }
+        });
     }
 
     @Override
@@ -42,10 +55,12 @@ public class RutinasAdaptador extends RecyclerView.Adapter<RutinasAdaptador.Ruti
 
     public static class RutinaViewHolder extends RecyclerView.ViewHolder {
         public TextView textViewNombreRutina;
+        public TextView textviewFecha;
 
         public RutinaViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewNombreRutina = itemView.findViewById(R.id.textViewNombreRutina);
+            textviewFecha = itemView.findViewById(R.id.textViewFecha);
         }
     }
 }

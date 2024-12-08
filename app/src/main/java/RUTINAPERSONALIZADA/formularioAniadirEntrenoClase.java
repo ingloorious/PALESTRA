@@ -35,9 +35,6 @@ public class formularioAniadirEntrenoClase extends AppCompatActivity {
     TextView panelInfo;
 
     String fechaConcatenada, nameEjercicio;
-
-    int seriesNumero, repesNumero, pesoNumero;
-
     LinearLayout layoutDatos;
 
     Button guardar , subirDatabase;
@@ -46,6 +43,8 @@ public class formularioAniadirEntrenoClase extends AppCompatActivity {
     Spinner rutinaCombo, numSeriesCombo, repesCombo;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
+
+    personalizarRutinaClase adapt ;
 
     private List<ejercicio> listaEjercicios;
     private List<series> seriesList = new ArrayList<>();
@@ -67,6 +66,7 @@ public class formularioAniadirEntrenoClase extends AppCompatActivity {
         panelInfo = findViewById(R.id.txtEjercicios);
         subirDatabase = findViewById(R.id.btnSubirData);
         numSeriesCombo.setEnabled(false);
+        adapt = new personalizarRutinaClase();
 
         String[] opciones = {"", "ESPALDA , BICEPS ", "PECHO TRICEPS", "BRAZO", "TORSO", "PIERNA"};
 
@@ -98,7 +98,6 @@ public class formularioAniadirEntrenoClase extends AppCompatActivity {
 
         seriesList = new ArrayList<>();
         listaEjercicios = new ArrayList<>();
-
         subirDatabase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -198,13 +197,6 @@ public class formularioAniadirEntrenoClase extends AppCompatActivity {
             }
         });
 
-
-        int mes = fecha.getMonthValue(); // Mes (1-12)
-        int dia = fecha.getDayOfMonth(); // Día (1-31)
-
-        // Concatenar el mes y el día en un String
-        fechaConcatenada = dia + "/" + mes;
-
         guardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -221,7 +213,6 @@ public class formularioAniadirEntrenoClase extends AppCompatActivity {
 
                 try {
                     guardarLista(rutina, nameEjercicio, pesoSeleccionado, repes, serieNumero);
-
                 } catch (NumberFormatException e) {
                     // En caso de que se intente convertir una cadena no válida
                     Toast.makeText(formularioAniadirEntrenoClase.this, "Por favor, ingrese números válidos.", Toast.LENGTH_SHORT).show();
@@ -252,35 +243,36 @@ public class formularioAniadirEntrenoClase extends AppCompatActivity {
             return;
         }
 
-        // Obtener el correo del usuario autenticado
+        LocalDateTime fecha = LocalDateTime.now();
+        int mes = fecha.getMonthValue(); // Mes (1-12)
+        int dia = fecha.getDayOfMonth(); // Día (1-31)
+        fechaConcatenada = dia + "/" + mes;
+
+
         String correo = mAuth.getCurrentUser().getEmail();
 
-        // Crear el documento de entrenamiento con ID único
+
         db.collection("rutinasPersonalizadas")
                 .document(correo)
                 .collection("entrenamientos")
-                .add(new entrenamiento(rutina, listaEjercicios))
+                .add(new entrenamiento(rutina,fechaConcatenada, listaEjercicios))
                 .addOnSuccessListener(documentReference -> {
-                    // Obtenemos el ID del documento recién creado
                     String entrenamientoID = documentReference.getId();
-
-                    // Ahora podemos usar el ID para asociar los ejercicios con el documento
-                    db.collection("rutinasPersonalizada")
+                    db.collection("rutinasPersonalizadas")
                             .document(correo)
                             .collection("entrenamientos")
                             .document(entrenamientoID)
-                            .set(new entrenamiento(rutina, listaEjercicios))
+                            .set(new entrenamiento(rutina, fechaConcatenada ,listaEjercicios))
                             .addOnSuccessListener(aVoid -> {
-                                // Mostrar un mensaje de éxito si la operación se completó correctamente
                                 Toast.makeText(formularioAniadirEntrenoClase.this, "Datos guardados correctamente.", Toast.LENGTH_SHORT).show();
+                                adapt.adaptador.notifyDataSetChanged();
+
                             })
                             .addOnFailureListener(e -> {
-                                // Mostrar un mensaje de error si ocurrió un problema al guardar los datos
                                 Toast.makeText(formularioAniadirEntrenoClase.this, "Error al guardar los datos", Toast.LENGTH_SHORT).show();
                             });
                 })
                 .addOnFailureListener(e -> {
-                    // Manejar posibles errores al crear el documento
                     Toast.makeText(formularioAniadirEntrenoClase.this, "Error al crear el documento", Toast.LENGTH_SHORT).show();
                 });
     }

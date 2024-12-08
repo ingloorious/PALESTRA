@@ -11,8 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 
 import com.example.gimnasio.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,30 +22,21 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
-public class personalizarRutinaClase extends Fragment {
-
-
+public class personalizarRutinaClase extends Fragment implements RutinasAdaptador.OnRutinaClickListener {
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     private RecyclerView recyclerView;
-    private RutinasAdaptador adaptador;
+    public RutinasAdaptador adaptador;
     private List<Rutina> listaRutinas;
-    FloatingActionButton aniadir ;
-    public personalizarRutinaClase() {
-        // Required empty public constructor
-    }
-
+    private FloatingActionButton aniadir;
 
     public static personalizarRutinaClase newInstance(String param1, String param2) {
         personalizarRutinaClase fragment = new personalizarRutinaClase();
         Bundle args = new Bundle();
-
         fragment.setArguments(args);
         return fragment;
     }
@@ -66,7 +55,7 @@ public class personalizarRutinaClase extends Fragment {
         aniadir = view.findViewById(R.id.btnAniadirEjercicio);
         recyclerView = view.findViewById(R.id.recyclerViewRutinas);
         listaRutinas = new ArrayList<>();
-        adaptador = new RutinasAdaptador(listaRutinas);
+        adaptador = new RutinasAdaptador(getContext(), listaRutinas, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adaptador);
         cargarDatos();
@@ -79,13 +68,12 @@ public class personalizarRutinaClase extends Fragment {
             }
         });
 
-
         return view;
     }
 
     private void cargarDatos() {
         String correo = mAuth.getCurrentUser().getEmail();
-        db.collection("rutinasPersonalizada")
+        db.collection("rutinasPersonalizadas")
                 .document(correo)
                 .collection("entrenamientos")
                 .get()
@@ -95,18 +83,60 @@ public class personalizarRutinaClase extends Fragment {
                         if (task.isSuccessful()) {
                             listaRutinas.clear();
                             for (DocumentSnapshot document : task.getResult()) {
-                                String rutinaNombre = document.getString("rutina"); // Extrae solo el nombre
-                                listaRutinas.add(new Rutina(rutinaNombre, null, null));
+                                String rutinaNombre = document.getString("rutina");
+                                String fechaFormateada = document.getString("fecha");
+
+                                List<Map<String, Object>> ejerciciosMap = (List<Map<String, Object>>) document.get("ejercicios");
+
+                                for (Map<String, Object> ejercicioMap : ejerciciosMap) {
+                                    String nombreEjercicio = (String) ejercicioMap.get("nombreEjercicio");
+                                    List<Map<String, Object>> seriesList = (List<Map<String, Object>>) ejercicioMap.get("seriesList");
+
+
+                                    List<ejercicio> ejercicios = new ArrayList<>();
+                                    Rutina rutina = new Rutina(rutinaNombre, fechaFormateada, ejercicios);
+
+                                    List<series> series = new ArrayList<>();
+
+
+                                    for (Map<String, Object> seriesMap : seriesList) {
+                                        String numeroSerie = (String) seriesMap.get("numeroSerie");
+                                        String peso = (String) seriesMap.get("peso");
+                                        String repeticiones = (String) seriesMap.get("repeticiones");
+
+                                        // Crear y añadir la serie
+                                        series nuevaSerie = new series(numeroSerie, peso, repeticiones);
+                                        series.add(nuevaSerie);
+
+                                        ejercicio ejercicioSeleccionado = new ejercicio(nombreEjercicio, new ArrayList<series>());
+                                        ejercicioSeleccionado.agregarSerie(nuevaSerie);
+
+                                        // Añadir el ejercicio a la rutina
+                                        rutina.getEjercicios().add(ejercicioSeleccionado);
+                                    }
+
+
+                                    if (!listaRutinas.contains(rutina)) {
+                                        listaRutinas.add(rutina);
+                                    }
+                                }
+                                adaptador.notifyDataSetChanged();
                             }
-                            adaptador.notifyDataSetChanged();
                         } else {
-                            // Manejar error
+
+
                         }
                     }
                 });
     }
 
-
-
-
+    @Override
+    public void onRutinaClick(int position) {
+        Rutina selectedRutina = listaRutinas.get(position);
+        Intent intent = new Intent(getContext(), rutinaInformacionClass.class);
+        intent.putExtra("rutina_nombre", selectedRutina.getNombre());
+        intent.putExtra("rutina_fecha", selectedRutina.getFecha());
+        intent.putParcelableArrayListExtra("series", new ArrayList<>(selectedRutina.getEjercicios()));
+        startActivity(intent);
+    }
 }
