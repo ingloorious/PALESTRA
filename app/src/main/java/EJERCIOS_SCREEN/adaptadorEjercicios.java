@@ -21,14 +21,14 @@ public class adaptadorEjercicios extends RecyclerView.Adapter<adaptadorEjercicio
 
     // Clase ViewHolder
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public GifImageView gifImageView; // GifImageView para el GIF
-        public TextView descripcionTextView , consejosTextView; // TextView para la descripción y consejos
+        public GifImageView gifImageView;
+        public TextView descripcionTextView , consejosTextView;
 
         public ViewHolder(View view) {
             super(view);
             // Usando los mismos IDs que en el XML
-            gifImageView = view.findViewById(R.id.gifImageView);  // GifImageView
-            descripcionTextView = view.findViewById(R.id.descripcionTextView);  // TextView para la descripción
+            gifImageView = view.findViewById(R.id.gifImageView);
+            descripcionTextView = view.findViewById(R.id.descripcionTextView);
             consejosTextView = view.findViewById(R.id.consejos);
         }
     }
@@ -45,9 +45,9 @@ public class adaptadorEjercicios extends RecyclerView.Adapter<adaptadorEjercicio
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         excerciseClase ejercicio = ejerciciosList.get(position);
-        holder.gifImageView.setImageResource(ejercicio.getGifId()); // Establece el GIF
-        holder.descripcionTextView.setText(ejercicio.getDescripcion()); // Establece la descripción
-        holder.consejosTextView.setText(ejercicio.getConsejo()); //establecemos consejo
+        holder.gifImageView.setImageResource(ejercicio.getGifId());
+        holder.descripcionTextView.setText(ejercicio.getDescripcion());
+        holder.consejosTextView.setText(ejercicio.getConsejo());
     }
 
     @Override

@@ -137,7 +137,6 @@ public class formularioAniadirEntrenoClase extends AppCompatActivity {
                 repesCombo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        // Obtiene el texto actual de la TextView
                         if (i > 0) {
                             String textActualizado = panelInfo.getText().toString();
                             repes = repesCombo.getSelectedItem().toString();
@@ -155,16 +154,15 @@ public class formularioAniadirEntrenoClase extends AppCompatActivity {
                 });
         ;
 
-        // Agregar TextWatcher a EditText kilos
+
         kilos.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
-                // No necesitamos hacer nada antes de que cambie el texto
+
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-                // Se ejecuta cuando el texto cambia
                 String textActualizado = panelInfo.getText().toString();
                 repes = repesCombo.getSelectedItem().toString();
                 serieNumero = numSeriesCombo.getSelectedItem().toString();
@@ -176,11 +174,11 @@ public class formularioAniadirEntrenoClase extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                // No necesitamos hacer nada después de que cambie el texto
+
             }
         });
 
-        // Agregar TextWatcher a repesCombo (si es necesario manejar texto como números)
+
         repesCombo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -201,8 +199,6 @@ public class formularioAniadirEntrenoClase extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 nameEjercicio = ejercicio.getText().toString();
-
-                // Verificar si los campos de series, repeticiones y peso están vacíos
                 if (nameEjercicio.trim().isEmpty() ||
                         serieNumero == null || serieNumero.trim().isEmpty() ||
                         repes == null || repes.trim().isEmpty() ||
@@ -214,7 +210,6 @@ public class formularioAniadirEntrenoClase extends AppCompatActivity {
                 try {
                     guardarLista(rutina, nameEjercicio, pesoSeleccionado, repes, serieNumero);
                 } catch (NumberFormatException e) {
-                    // En caso de que se intente convertir una cadena no válida
                     Toast.makeText(formularioAniadirEntrenoClase.this, "Por favor, ingrese números válidos.", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -222,7 +217,7 @@ public class formularioAniadirEntrenoClase extends AppCompatActivity {
     }
 
     private void actualizarDatosUI(String rutina) {
-        panelInfo.setText(""); // Limpiar la TextView
+        panelInfo.setText("");
         for (ejercicio ejercicio : listaEjercicios) {
             panelInfo.append("RUTINA: " + rutina + "\n");
             panelInfo.append("Ejercicio: " + ejercicio.getNombreEjercicio() + "\n");
@@ -244,8 +239,8 @@ public class formularioAniadirEntrenoClase extends AppCompatActivity {
         }
 
         LocalDateTime fecha = LocalDateTime.now();
-        int mes = fecha.getMonthValue(); // Mes (1-12)
-        int dia = fecha.getDayOfMonth(); // Día (1-31)
+        int mes = fecha.getMonthValue();
+        int dia = fecha.getDayOfMonth();
         fechaConcatenada = dia + "/" + mes;
 
 

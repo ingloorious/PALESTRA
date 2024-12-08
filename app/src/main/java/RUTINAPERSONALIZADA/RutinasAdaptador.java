@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gimnasio.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RutinasAdaptador extends RecyclerView.Adapter<RutinasAdaptador.RutinaViewHolder> {
@@ -38,8 +39,14 @@ public class RutinasAdaptador extends RecyclerView.Adapter<RutinasAdaptador.Ruti
     @Override
     public void onBindViewHolder(@NonNull RutinaViewHolder holder, int position) {
         Rutina rutina = mRutinas.get(position);
-        holder.textviewFecha.setText(rutina.getFecha());
+        holder.textviewFecha.setText("Fecha : " +rutina.getFecha());
         holder.textViewNombreRutina.setText(rutina.getNombre());
+        holder.ejercicios.clear();
+
+
+        for (ejercicio ej : rutina.getEjercicios()) {
+            holder.ejercicios.add(ej);
+        }
 
         holder.itemView.setOnClickListener(v -> {
             if (onRutinaClickListener != null) {
@@ -57,10 +64,13 @@ public class RutinasAdaptador extends RecyclerView.Adapter<RutinasAdaptador.Ruti
         public TextView textViewNombreRutina;
         public TextView textviewFecha;
 
+        public List<ejercicio> ejercicios;
+
         public RutinaViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewNombreRutina = itemView.findViewById(R.id.textViewNombreRutina);
             textviewFecha = itemView.findViewById(R.id.textViewFecha);
+            ejercicios = new ArrayList<>();
         }
     }
 }

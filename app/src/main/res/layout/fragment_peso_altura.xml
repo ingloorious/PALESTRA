@@ -7,7 +7,6 @@
     android:padding="16dp"
     android:gravity="center">
 
-    <!-- Etiqueta para el NumberPicker de Altura -->
     <TextView
         android:id="@+id/txtAltura"
         android:layout_width="wrap_content"
@@ -17,7 +16,6 @@
         android:layout_marginBottom="8dp"
         style="@style/narcissistStyle"/>
 
-    <!-- NumberPicker para la Altura -->
     <android.widget.NumberPicker
         android:id="@+id/altura"
         android:layout_width="wrap_content"
@@ -25,7 +23,6 @@
         android:layout_gravity="center"
         android:value="175" />
 
-    <!-- Etiqueta para el NumberPicker de Peso -->
     <TextView
         android:id="@+id/txtPeso"
         android:layout_width="wrap_content"
@@ -36,7 +33,6 @@
         android:layout_marginBottom="8dp"
         style="@style/narcissistStyle"/>
 
-    <!-- NumberPicker para el Peso -->
     <android.widget.NumberPicker
         android:id="@+id/peso"
         android:layout_width="wrap_content"
@@ -45,7 +41,7 @@
         android:value="70"
         />
 
-    <!-- Botón para continuar -->
+
     <Button
         android:id="@+id/btnContinuar"
         android:layout_width="250dp"

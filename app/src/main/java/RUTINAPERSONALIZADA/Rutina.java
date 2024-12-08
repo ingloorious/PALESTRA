@@ -8,16 +8,15 @@ import androidx.annotation.NonNull;
 import java.util.List;
 
 public class Rutina implements Parcelable {
-    private String id; // El ID del documento de Firestore
-    private String nombre; // Nombre de la rutina
-    private String fecha; // Fecha en que se hizo la rutina
-    private List<ejercicio> ejercicios; // Lista de ejercicios relacionados con esta rutina
+    private String id;
+    private String nombre;
+    private String fecha;
+    private List<ejercicio> ejercicios;
 
-    // Constructor vacío necesario para Firestore
     public Rutina() {
     }
 
-    // Constructor que inicializa los campos
+
     public Rutina(String nombre, String fecha, List<ejercicio> ejercicios) {
         this.nombre = nombre;
         this.fecha = fecha;

@@ -29,7 +29,6 @@ public class pesoAltura extends Fragment {
     BBDD base ;
 
     public pesoAltura() {
-        // Constructor vacío requerido para fragmentos
     }
 
     public static pesoAltura newInstance(String param1, String param2) {
@@ -91,6 +90,6 @@ public class pesoAltura extends Fragment {
             }
         });
 
-        return view;  // Devolver el view inflado correctamente
+        return view;
     }
 }

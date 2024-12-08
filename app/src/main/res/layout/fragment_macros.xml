@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MacrosFragment">
 
-    <!-- FragmentContainerView para cargar fragmentos -->
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
         android:layout_width="0dp"
@@ -18,13 +18,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Botón para iniciar el cálculo de macros -->
+
     <Button
         android:id="@+id/btnMacros"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Iniciar cálculo de macros"
         android:layout_marginTop="5dp"
+        style="@style/narcissistStyle"
+        android:backgroundTint="#F44336"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

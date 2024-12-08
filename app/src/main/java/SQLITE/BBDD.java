@@ -30,13 +30,12 @@ public class BBDD extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    // Este método es llamado cuando se crea la base de datos
+
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(CREATE_TABLE);  // Ejecuta el SQL para crear la tabla
+        db.execSQL(CREATE_TABLE);
     }
 
-    // Este método es llamado cuando se actualiza la base de datos
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
@@ -45,11 +44,10 @@ public class BBDD extends SQLiteOpenHelper {
     }
 
     public void InsertarDatos(int peso, float altura, int edad, String sexo, String objetivo, String actividad , String frecuencia) {
-        // Open the database in writable mode
         SQLiteDatabase db = this.getWritableDatabase();
 
 
-        // Create a ContentValues object to insert the data
+
         ContentValues values = new ContentValues();
         values.put("PESO", peso);
         values.put("ALTURA", altura);
@@ -84,30 +82,28 @@ public class BBDD extends SQLiteOpenHelper {
     public boolean existeFila() {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        // Definir la columna que quieres verificar
-        String[] columnas = {"id"};  // Solo la columna id, ya que solo estamos verificando la existencia
+        String[] columnas = {"id"};
 
-        // Definir la condición de búsqueda
         String selection = "id = ?";
-        String[] selectionArgs = { String.valueOf(1) };  // El ID que quieres verificar
+        String[] selectionArgs = { String.valueOf(1) };
 
         // Hacer la consulta a la base de datos
         Cursor cursor = db.query(
-                "usuarios",    // Nombre de la tabla
-                columnas,      // Columnas que queremos recuperar
-                selection,     // Condición de búsqueda
-                selectionArgs, // Argumentos de la condición
-                null,          // No agrupamos los resultados
-                null,          // No ordenamos
-                null           // No limitamos los resultados
+                "usuarios",
+                columnas,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
         );
 
-        boolean existe = cursor.getCount() > 0;  // Si el cursor tiene algún resultado, significa que la fila existe
+        boolean existe = cursor.getCount() > 0;
 
-        cursor.close();  // Cerrar el cursor
-        db.close();      // Cerrar la base de datos
+        cursor.close();
+        db.close();
 
-        return existe;   // Retorna true si existe, false si no existe
+        return existe;
     }
 }
 

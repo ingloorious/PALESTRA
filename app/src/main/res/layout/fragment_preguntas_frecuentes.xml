@@ -1,0 +1,103 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="AJUSTES.preguntasFRECUENTES.preguntasFrecuentesClase">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Preguntas Frecuentes"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:paddingBottom="16dp" />
+
+            <!-- Pregunta 1 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¿Cómo puedo sugerir una mejora o algún error en la aplicación?"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:paddingTop="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="En el apartado Contactanos en ajustes puedes escribir un reporte donde tomaremos en cuenta la propuesta."
+                android:paddingBottom="8dp" />
+
+            <!-- Pregunta 2 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¿Cómo puedo cambiar mi peso y estatura si me he equivocado?"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:paddingTop="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="En el apartado información personal en ajustes podrás cambiar estas opciones incluida tu fecha de nacimiento."
+                android:paddingBottom="8dp" />
+
+            <!-- Pregunta 3 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¿Dónde puedo consultar mis entrenamientos previos?"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:paddingTop="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="En el menú de añadir rutina podrás ver tus rutinas previas, en caso de no estar tienes que ingresar una."
+                android:paddingBottom="8dp" />
+
+            <!-- Pregunta 4 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¿Puedo recuperar datos eliminados?"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:paddingTop="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No, los datos eliminados no pueden recuperarse, pero estamos trabajando en implementar una opción de recuperar datos de los últimos 30 días."
+                android:paddingBottom="8dp" />
+
+            <!-- Pregunta 5 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¿Cómo puedo eliminar mi cuenta?"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:paddingTop="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Para eliminar tu cuenta, por favor contacta con soporte desde la opción Contactanos de ajustes, esta opción la implementaremos en el futuro."
+                android:paddingBottom="8dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

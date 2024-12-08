@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.eazegraph.lib.charts.BarChart;
@@ -49,10 +50,13 @@ public class macrosMain extends Fragment {
     public TextView caloPorcentaje, carbsPorcentaje, protePorcentaje, grasaPorcentaje;
 
     BBDD base;
-
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
 
+    int colorProteinas;
+    int colorCarbohidratos;
+    int colorGrasas;
+    int colorCalorias;
 
     public macrosMain() {
 
@@ -87,31 +91,132 @@ public class macrosMain extends Fragment {
         carbsPorcentaje = view.findViewById(R.id.txtCarbs);
         grasaPorcentaje = view.findViewById(R.id.txtGrasas);
 
-        int colorProteinas = ContextCompat.getColor(context, R.color.proteinas);
-        int colorCarbohidratos = ContextCompat.getColor(context, R.color.carbohidratos);
-        int colorGrasas = ContextCompat.getColor(context, R.color.grasas);
-        int colorCalorias = ContextCompat.getColor(context, R.color.calorias);
+         colorProteinas = ContextCompat.getColor(context, R.color.proteinas);
+         colorCarbohidratos = ContextCompat.getColor(context, R.color.carbohidratos);
+         colorGrasas = ContextCompat.getColor(context, R.color.grasas);
+         colorCalorias = ContextCompat.getColor(context, R.color.calorias);
 
 
         SharedPreferences recogerDatos = getActivity().getSharedPreferences("DatosUsuario", Context.MODE_PRIVATE);
-        peso = recogerDatos.getInt("PESO", 0);
-        altura = recogerDatos.getFloat("ALTURA", 0f);
-        edad = recogerDatos.getInt("EDAD", 0);
-        sexo = recogerDatos.getString("SEXO", "");
-        frecuenciaEntreno = recogerDatos.getString("FRECUENCIA", "");
-        nivelActividad = recogerDatos.getString("ACTIVIDAD", "");
-        objetivo = recogerDatos.getString("OBJETIVO", "");
 
-        //base.limpiar();
-        base.getWritableDatabase();
-        base.InsertarDatos(peso, altura, edad, sexo, frecuenciaEntreno, nivelActividad, objetivo);
+        if (recogerDatos.contains("PESO") && recogerDatos.contains("ALTURA") &&
+                recogerDatos.contains("EDAD") && recogerDatos.contains("SEXO") &&
+                recogerDatos.contains("FRECUENCIA") && recogerDatos.contains("ACTIVIDAD") &&
+                recogerDatos.contains("OBJETIVO")) {
 
-        calculadora calc = new calculadora(edad, peso, sexo, frecuenciaEntreno, nivelActividad, objetivo, altura);
-        GuardarDatos(calc);
-        resultMacros resultados = calc.calcularMacros();
+            peso = recogerDatos.getInt("PESO", 0);
+            altura = recogerDatos.getFloat("ALTURA", 0f);
+            edad = recogerDatos.getInt("EDAD", 0);
+            sexo = recogerDatos.getString("SEXO", "");
+            frecuenciaEntreno = recogerDatos.getString("FRECUENCIA", "");
+            nivelActividad = recogerDatos.getString("ACTIVIDAD", "");
+            objetivo = recogerDatos.getString("OBJETIVO", "");
 
-        System.out.println(resultados);
-        //BORRAR DECIMALES AL PARSEARLO A STRING
+            calculadora calc = new calculadora(edad, peso, sexo, frecuenciaEntreno, nivelActividad, objetivo, altura);
+            resultMacros resultados = calc.calcularMacros();
+            GuardarDatos(calc);
+            actualizarGraficos(resultados, colorProteinas, colorCarbohidratos, colorCalorias, colorGrasas);
+
+        } else {
+            leerDatosYGuardarEnVariables();
+        }
+
+        return view;
+    }
+
+
+    public void GuardarDatos(calculadora datos) {
+        try {
+            if (mAuth.getCurrentUser() != null) {
+                String correo = mAuth.getCurrentUser().getEmail();
+                CollectionReference coleccion = db.collection("macros");
+                coleccion.whereEqualTo("email", correo)
+                        .get()
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                if (!task.getResult().isEmpty()) {
+                                    Toast.makeText(getActivity(), "El correo ya tiene datos guardados.", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    // Si no existen registros, procedemos a guardar
+                                    macro data = new macro(
+                                            datos.getEdad(),
+                                            datos.getPeso(),
+                                            datos.getAltura(),
+                                            datos.getSexo(),
+                                            datos.getFrecuenciaEntrenamiento(),
+                                            datos.getNivelActividad(),
+                                            datos.getObjetivo(),
+                                            correo
+                                    );
+
+                                    coleccion.add(data)
+                                            .addOnSuccessListener(documentReference -> {
+                                                Toast.makeText(getActivity(), "Datos guardados correctamente.", Toast.LENGTH_SHORT).show();
+                                            })
+                                            .addOnFailureListener(e -> {
+                                                Toast.makeText(getActivity(), "Error al guardar los datos.", Toast.LENGTH_SHORT).show();
+                                            });
+                                }
+                            } else {
+                                Exception e = task.getException();
+                                if (e != null) {
+                                    e.printStackTrace();
+                                }
+                                Toast.makeText(getActivity(), "Error al verificar datos existentes.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(getActivity(), "Se produjo un error.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+        public void leerDatosYGuardarEnVariables() {
+            try {
+                if (mAuth.getCurrentUser() != null) {
+                    String correo = mAuth.getCurrentUser().getEmail(); // Obtén el correo del usuario actual
+                    CollectionReference coleccion = db.collection("macros");
+
+                    // Consulta para obtener los datos del correo
+                    coleccion.whereEqualTo("email", correo)
+                            .get()
+                            .addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    if (!task.getResult().isEmpty()) {
+                                        // Si la consulta tiene resultados, guarda los datos en la clase calculadora
+                                        DocumentSnapshot document = task.getResult().getDocuments().get(0); // Se asume que hay un único resultado
+
+                                        int edad = document.getLong("edad").intValue();
+                                        float peso = document.getDouble("peso").floatValue();
+                                        float altura = document.getDouble("altura").floatValue();
+                                        String sexo = document.getString("sexo");
+                                        String frecuenciaEntrenamiento = document.getString("frecuenciaEntrenamiento");
+                                        String nivelActividad = document.getString("nivelActividad");
+                                        String objetivo = document.getString("objetivo");
+
+                                        calculadora datoss = new calculadora(edad, (int)peso, sexo, frecuenciaEntrenamiento, nivelActividad, objetivo, altura);
+                                        resultMacros resultadosZ = datoss.calcularMacros();
+                                        actualizarGraficos(resultadosZ , colorProteinas, colorCarbohidratos, colorCalorias, colorGrasas );
+                                    } else {
+                                        Toast.makeText(getActivity(), "No se encontraron datos para este correo.", Toast.LENGTH_SHORT).show();
+                                    }
+                                } else {
+                                    Exception e = task.getException();
+                                    if (e != null) {
+                                        e.printStackTrace();
+                                    }
+                                    Toast.makeText(getActivity(), "Error al obtener los datos.", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(getActivity(), "Se produjo un error.", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+    public void actualizarGraficos(resultMacros resultados, int colorProteinas, int colorCarbohidratos, int colorCalorias, int colorGrasas) {
         int caloriasInt = (int) resultados.caloriasDiarias;
         int proteInt = (int) resultados.proteinas;
         int carbosInt = (int) resultados.carbohidratos;
@@ -142,6 +247,9 @@ public class macrosMain extends Fragment {
             String grasasNombreConPorc = "Grasas " + grasasPorcentajeInt + "%";
 
             // Añadir datos al gráfico
+            grafico.clearChart();
+            barraMacros.clearChart();
+
             grafico.addPieSlice(new PieModel(proteNombreConPorc, protePorcentajeInt, colorProteinas));
             grafico.addPieSlice(new PieModel(carbsNombreConPorc, carbsPorcentajeInt, colorCarbohidratos));
             grafico.addPieSlice(new PieModel(caloriasNombreConPorc, caloriasPorcentajeInt, colorCalorias));
@@ -157,68 +265,12 @@ public class macrosMain extends Fragment {
             grasaPorcentaje.setText(String.format("%d%%", (int) porcentajeGrasas));
             carbsPorcentaje.setText(String.format("%d%%", (int) porcentajeCarbos));
 
-
         } else {
-            // Manejo del caso donde el total es 0 (si todos los valores son 0)
             Log.e("Grafico", "El total de los valores es 0. No se puede calcular el porcentaje.");
         }
 
         grafico.startAnimation();
         barraMacros.startAnimation();
-
-
-        return view;
+    }
     }
 
-    public void GuardarDatos(calculadora datos) {
-        try {
-            if (mAuth.getCurrentUser() != null) {
-                String correo = mAuth.getCurrentUser().getEmail(); // Obtén el correo del usuario actual
-                CollectionReference coleccion = db.collection("macros");
-
-                // Consulta para verificar si el correo ya existe en la colección
-                coleccion.whereEqualTo("email", correo)
-                        .get()
-                        .addOnCompleteListener(task -> {
-                            if (task.isSuccessful()) {
-                                if (!task.getResult().isEmpty()) {
-                                    // Si la consulta tiene resultados, significa que ya existe un registro con el correo
-                                    Toast.makeText(getActivity(), "El correo ya tiene datos guardados.", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    // Si no existen registros, procedemos a guardar
-                                    macro data = new macro(
-                                            datos.getEdad(),
-                                            datos.getPeso(),
-                                            datos.getAltura(),
-                                            datos.getSexo(),
-                                            datos.getFrecuenciaEntrenamiento(),
-                                            datos.getNivelActividad(),
-                                            datos.getObjetivo(),
-                                            correo
-                                    );
-
-                                    coleccion.add(data)
-                                            .addOnSuccessListener(documentReference -> {
-                                                Toast.makeText(getActivity(), "Datos guardados correctamente.", Toast.LENGTH_SHORT).show();
-                                            })
-                                            .addOnFailureListener(e -> {
-                                                Toast.makeText(getActivity(), "Error al guardar los datos.", Toast.LENGTH_SHORT).show();
-                                            });
-                                }
-                            } else {
-                                // Error al realizar la consulta
-                                Exception e = task.getException();
-                                if (e != null) {
-                                    e.printStackTrace();
-                                }
-                                Toast.makeText(getActivity(), "Error al verificar datos existentes.", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(getActivity(), "Se produjo un error.", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-}

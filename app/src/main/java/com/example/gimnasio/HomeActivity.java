@@ -38,7 +38,9 @@ public class HomeActivity extends AppCompatActivity {
 
     BBDD base;
 
-    private boolean isNavigatingFromAjustes = false; // Flag para detectar la navegación desde Ajustes
+    private boolean isNavigatingFromAjustes = false;
+
+    private boolean isNavigatingFromHome = false;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
@@ -57,8 +59,8 @@ public class HomeActivity extends AppCompatActivity {
 
 
         remplazoFragmento(new HomeFragment(), R.anim.slide_to_izquierda,
-                R.anim.slide_desde_izquierda,  // Animación de salida
-                R.anim.slide_to_izquierda,   // Animación al volver
+                R.anim.slide_desde_izquierda,
+                R.anim.slide_to_izquierda,
                 R.anim.slide_desde_derecha);
         base = new BBDD(this);
 
@@ -66,13 +68,13 @@ public class HomeActivity extends AppCompatActivity {
         int peso = recogerDatos.getInt("PESO", 0);
         float altura = recogerDatos.getFloat("ALTURA", 0f);
 
-        //LIMPIAR DATOS DEL SHARED DEPURAR
+
 
         SharedPreferences.Editor editor = recogerDatos.edit();
-        editor.clear();  // Elimina todos los datos
+        editor.clear();
         editor.apply();
 
-        //asignar fragmento en funcion al id asignado en el menu
+
         binding.bottomnavigationView.setOnItemSelectedListener(item -> {
             Fragment fragment = null;
             int enterAnim = 0;
@@ -80,15 +82,15 @@ public class HomeActivity extends AppCompatActivity {
             int popEnterAnim = 0;
             int popExitAnim = 0;
 
-            // Determina el fragmento que debe mostrarse y las animaciones
             if (item.getItemId() == R.id.home) {
+                isNavigatingFromHome = true;
                 fragment = new HomeFragment();
                 enterAnim = R.anim.slide_desde_izquierda;
                 exitAnim = R.anim.slide_to_derecha;
                 popEnterAnim = R.anim.slide_desde_derecha;
                 popExitAnim = R.anim.slide_to_izquierda;
             } else if (item.getItemId() == R.id.macros) {
-                // Llamar a chequear siempre que se seleccione la opción "macros"
+                isNavigatingFromHome = false;
                 chequear();
                 enterAnim = R.anim.slide_desde_derecha;
                 exitAnim = R.anim.slide_to_izquierda;
@@ -96,16 +98,40 @@ public class HomeActivity extends AppCompatActivity {
                 popExitAnim = R.anim.slide_to_derecha;
             } else if (item.getItemId() == R.id.settings) {
                 isNavigatingFromAjustes = true;
+                isNavigatingFromHome = false;
                 fragment = new AjustesFragment();
                 enterAnim = R.anim.slide_desde_derecha;
                 exitAnim = R.anim.slide_to_izquierda;
                 popEnterAnim = R.anim.slide_desde_izquierda;
                 popExitAnim = R.anim.slide_to_derecha;
-            }else if(item.getItemId() == R.id.RutinaRegistro) {
+            } else if (item.getItemId() == R.id.RutinaRegistro) {
                 fragment = new personalizarRutinaClase();
+
+
+                if (isNavigatingFromAjustes) {
+                    enterAnim = R.anim.slide_desde_izquierda;
+                    exitAnim = R.anim.slide_to_derecha;
+                    popEnterAnim = R.anim.slide_desde_derecha;
+                    popExitAnim = R.anim.slide_to_izquierda;
+                } else if (isNavigatingFromHome) {
+                    enterAnim = R.anim.slide_desde_derecha;
+                    exitAnim = R.anim.slide_to_izquierda;
+                    popEnterAnim = R.anim.slide_desde_izquierda;
+                    popExitAnim = R.anim.slide_to_derecha;
+                } else {
+
+                    enterAnim = R.anim.slide_desde_derecha;
+                    exitAnim = R.anim.slide_to_izquierda;
+                    popEnterAnim = R.anim.slide_desde_izquierda;
+                    popExitAnim = R.anim.slide_to_derecha;
+                }
+
+                isNavigatingFromAjustes = false;
+                isNavigatingFromHome = false;
             }
 
-            // Verifica si el fragmento actual es el mismo que el fragmento que se quiere cargar
+
+
             if (fragment != null && !isFragmentVisible(fragment)) {
                 remplazoFragmento(fragment, enterAnim, exitAnim, popEnterAnim, popExitAnim);
             }
@@ -121,27 +147,23 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-    //metodo para el cambio de fragmento al seleccionar otro icono en la barra inferior
+
     private void remplazoFragmento(Fragment fragment, int enterAnim, int exitAnim, int popEnterAnim, int popExitAnim) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        // Configurar las animaciones
+
         fragmentTransaction.setCustomAnimations(enterAnim, exitAnim, popEnterAnim, popExitAnim);
 
         // Reemplazar el fragmento
         fragmentTransaction.replace(R.id.frame_layout, fragment);
-
-        // Añadir a la pila para retroceso
         fragmentTransaction.addToBackStack(null);
-
-        // Confirmar la transacción
         fragmentTransaction.commit();
     }
 
     // Método para verificar datos en Firestore
     private void chequear() {
-        String userEmail = mAuth.getCurrentUser().getEmail(); // Obtener el correo electrónico del usuario actual
+        String userEmail = mAuth.getCurrentUser().getEmail(); // Obtener el correo electrónico
 
         if (userEmail == null) {
             Log.e("Firestore", "El correo electrónico del usuario es nulo");
@@ -150,13 +172,12 @@ public class HomeActivity extends AppCompatActivity {
 
         // Realizar la consulta en Firestore
         db.collection("macros")
-                .whereEqualTo("email", userEmail) // Filtrar por el campo "correo"
+                .whereEqualTo("email", userEmail)
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         if (!task.getResult().isEmpty()) {
-                            // Si hay documentos que coinciden
-                            Fragment nuevoFragment = new macrosMain(); // Fragmento que muestra los datos
+                            Fragment nuevoFragment = new macrosMain();
 
                             // Transición al nuevo fragmento
                             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -164,13 +185,12 @@ public class HomeActivity extends AppCompatActivity {
                             transaction.addToBackStack(null);
                             transaction.commit();
                         } else {
-                            // Si no hay documentos que coincidan, mostrar MacrosFragment para ingresar datos
+
                             Fragment nuevoFragment = new MacrosFragment();
                             remplazoFragmento(nuevoFragment, R.anim.slide_desde_derecha, R.anim.slide_to_izquierda,
                                     R.anim.slide_desde_izquierda, R.anim.slide_to_derecha);
                         }
                     } else {
-                        // Manejar errores en la consulta
                         Log.e("Firestore", "Error al obtener los documentos", task.getException());
                     }
                 });
@@ -185,14 +205,10 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    // Si la consulta fue exitosa, iterar por los documentos
                     for (DocumentSnapshot documento : task.getResult()) {
-                        // Obtener el valor del campo "correo"
                         String correo = documento.getString("correo");
 
-                        // Validar que el correo no sea nulo antes de usarlo
                         if (correo != null) {
-                            // Mostrarlo en los logs
                             Log.d("Firestore", "Correo encontrado: " + correo);
                         } else {
                             Log.d("Firestore", "Documento sin campo 'correo': " + documento.getId());

@@ -8,9 +8,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.gimnasio.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,8 +25,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class personalizarRutinaClase extends Fragment implements RutinasAdaptador.OnRutinaClickListener {
 
@@ -81,54 +86,54 @@ public class personalizarRutinaClase extends Fragment implements RutinasAdaptado
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            listaRutinas.clear();
+                            List<Rutina> nuevasRutinas = new ArrayList<>();
+                            Set<String> fechasUnicas = new HashSet<>();
                             for (DocumentSnapshot document : task.getResult()) {
                                 String rutinaNombre = document.getString("rutina");
                                 String fechaFormateada = document.getString("fecha");
 
-                                List<Map<String, Object>> ejerciciosMap = (List<Map<String, Object>>) document.get("ejercicios");
+                                if (fechasUnicas.contains(fechaFormateada)) {
+                                    continue;
+                                }
 
+                                fechasUnicas.add(fechaFormateada);
+
+                                List<Map<String, Object>> ejerciciosMap = (List<Map<String, Object>>) document.get("ejercicios");
+                                List<ejercicio> ejercicios = new ArrayList<>();
                                 for (Map<String, Object> ejercicioMap : ejerciciosMap) {
                                     String nombreEjercicio = (String) ejercicioMap.get("nombreEjercicio");
                                     List<Map<String, Object>> seriesList = (List<Map<String, Object>>) ejercicioMap.get("seriesList");
-
-
-                                    List<ejercicio> ejercicios = new ArrayList<>();
-                                    Rutina rutina = new Rutina(rutinaNombre, fechaFormateada, ejercicios);
-
                                     List<series> series = new ArrayList<>();
-
 
                                     for (Map<String, Object> seriesMap : seriesList) {
                                         String numeroSerie = (String) seriesMap.get("numeroSerie");
                                         String peso = (String) seriesMap.get("peso");
                                         String repeticiones = (String) seriesMap.get("repeticiones");
-
-                                        // Crear y añadir la serie
                                         series nuevaSerie = new series(numeroSerie, peso, repeticiones);
                                         series.add(nuevaSerie);
-
-                                        ejercicio ejercicioSeleccionado = new ejercicio(nombreEjercicio, new ArrayList<series>());
-                                        ejercicioSeleccionado.agregarSerie(nuevaSerie);
-
-                                        // Añadir el ejercicio a la rutina
-                                        rutina.getEjercicios().add(ejercicioSeleccionado);
                                     }
 
-
-                                    if (!listaRutinas.contains(rutina)) {
-                                        listaRutinas.add(rutina);
-                                    }
+                                    ejercicio ejercicioSeleccionado = new ejercicio(nombreEjercicio, series);
+                                    ejercicios.add(ejercicioSeleccionado);
                                 }
-                                adaptador.notifyDataSetChanged();
+
+                                Rutina rutina = new Rutina(rutinaNombre, fechaFormateada, ejercicios);
+                                nuevasRutinas.add(rutina);
                             }
+
+
+                            new Handler(Looper.getMainLooper()).post(() -> {
+                                listaRutinas.clear();
+                                listaRutinas.addAll(nuevasRutinas);
+                                adaptador.notifyDataSetChanged();
+                            });
                         } else {
-
-
+                            Toast.makeText(getContext(), "Error al cargar datos", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
     }
+
 
     @Override
     public void onRutinaClick(int position) {

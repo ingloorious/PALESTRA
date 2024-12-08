@@ -41,6 +41,7 @@ public class rutinaInformacionClass extends AppCompatActivity {
 
         ArrayList<ejercicio> ejercicios = intent.getParcelableArrayListExtra("series");
 
+
         RecyclerView recyclerViewEjercicios = findViewById(R.id.recyclerViewEjercicios);
         recyclerViewEjercicios.setLayoutManager(new LinearLayoutManager(this));
 

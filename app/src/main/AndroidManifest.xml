@@ -23,9 +23,6 @@
             android:name="RUTINAPERSONALIZADA.formularioAniadirEntrenoClase"
             android:exported="false" />
         <activity
-            android:name="RUTINAPERSONALIZADA.detalleEntrenamientoClase"
-            android:exported="false" />
-        <activity
             android:name="EJERCIOS_SCREEN.ejercicios"
             android:exported="false" />
         <activity
@@ -36,6 +33,9 @@
             android:exported="true" />
         <activity
             android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name="PANTALLA_INTRO.intro_pantallaClase"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

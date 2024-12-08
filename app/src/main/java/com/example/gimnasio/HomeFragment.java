@@ -31,10 +31,10 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflar el layout para este fragmento
+
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        // Inicializa el RecyclerView
+
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -44,10 +44,8 @@ public class HomeFragment extends Fragment {
         items.add(new MyAdapter.Item(R.drawable.back, "5 días", "ESPALDA", "EQUIPAMIENTO GIMNASIO"));
         items.add(new MyAdapter.Item(R.drawable.legs, "4 días", "PIERNA", "EQUIPAMIENTO GIMNASIO"));
         items.add(new MyAdapter.Item(R.drawable.arms, "3 días", "BRAZOS", "EQUIPAMIENTO GIMNASIO"));
-        //items.add(new MyAdapter.Item(R.drawable.chest, "2 días", "Texto adicional 1", "Texto adicional 2"));
-        //items.add(new MyAdapter.Item(R.drawable.chest, "1 día", "Texto adicional 1", "Texto adicional 2"));
 
-        // Crear el adaptador y establecerlo en el RecyclerView
+
         adapter = new MyAdapter(requireContext(), items);
         recyclerView.setAdapter(adapter);
 

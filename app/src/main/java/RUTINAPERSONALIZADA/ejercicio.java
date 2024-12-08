@@ -18,7 +18,7 @@ public class ejercicio implements Parcelable {
 
     protected ejercicio(Parcel in) {
         nombreEjercicio = in.readString();
-        seriesList = in.createTypedArrayList(series.CREATOR); // Aquí lees las series
+        seriesList = in.createTypedArrayList(series.CREATOR);
     }
 
     public static final Creator<ejercicio> CREATOR = new Creator<ejercicio>() {

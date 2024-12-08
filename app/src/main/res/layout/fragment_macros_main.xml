@@ -6,7 +6,6 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- Título -->
     <TextView
         android:id="@+id/title"
         style="@style/narcissistStyle"
@@ -18,7 +17,7 @@
         android:text="MACRONUTRIENTES"
         android:textSize="25sp" />
 
-    <!-- Gráfico de macros -->
+
     <org.eazegraph.lib.charts.PieChart
         android:id="@+id/graficoMacros"
         android:layout_width="wrap_content"
@@ -27,7 +26,7 @@
         android:layout_centerHorizontal="true"
         android:paddingTop="16dp" />
 
-    <!-- Cuadro de colores y etiquetas -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,7 +37,7 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp">
 
-        <!-- Elemento Proteínas -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="15dp"
@@ -59,7 +58,7 @@
                 android:text="Proteínas"
                 android:textSize="14sp" />
 
-            <!-- Texto para el porcentaje de Proteínas -->
+
             <TextView
                 android:id="@+id/txtProte"
                 android:layout_width="wrap_content"
@@ -90,7 +89,7 @@
                 android:text="Calorías"
                 android:textSize="14sp" />
 
-            <!-- Texto para el porcentaje de Calorías -->
+
             <TextView
                 android:id="@+id/txtCalorias"
                 android:layout_width="wrap_content"
@@ -100,7 +99,7 @@
 
         </LinearLayout>
 
-        <!-- Elemento Carbohidratos -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="15dp"
@@ -121,7 +120,7 @@
                 android:text="Carbohidratos"
                 android:textSize="14sp" />
 
-            <!-- Texto para el porcentaje -->
+
             <TextView
                 android:id="@+id/txtCarbs"
                 android:layout_width="wrap_content"
@@ -130,7 +129,7 @@
                 android:layout_gravity="end" />
         </LinearLayout>
 
-        <!-- Elemento Grasas -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="15dp"
@@ -151,7 +150,7 @@
                 android:text="Grasas"
                 android:textSize="14sp" />
 
-            <!-- Texto para el porcentaje de Grasas -->
+
             <TextView
                 android:id="@+id/txtGrasas"
                 android:layout_width="wrap_content"

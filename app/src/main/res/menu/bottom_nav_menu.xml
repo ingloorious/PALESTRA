@@ -12,10 +12,10 @@
     <item
         android:id="@+id/RutinaRegistro"
         android:icon="@drawable/rutinaspersonalizar"
-        android:title="Ajustes" />
+        android:title=" añadir rutina" />
     <item
         android:id="@+id/settings"
-        android:icon="@drawable/ajuste"
+        android:icon="@drawable/ajustes"
         android:title="Ajustes" />
 
 </menu>

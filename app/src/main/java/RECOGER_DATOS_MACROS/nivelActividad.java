@@ -86,7 +86,6 @@ public class nivelActividad extends Fragment {
                 transaction.addToBackStack(null);
                 transaction.commit();
             } else {
-                // Si no hay ninguna opción seleccionada
                 Toast.makeText(getActivity(), "ERRORR", Toast.LENGTH_SHORT).show();
             }
             }

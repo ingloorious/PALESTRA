@@ -62,11 +62,11 @@ public class AjustesFragment extends Fragment {
         items.add("Cuenta");
         items.add(new ajustesClass("Información personal", R.drawable.infopersonal));
         items.add("Preferencias");
-        items.add(new ajustesClass("Notificaciones", R.drawable.campana));
-        items.add(new ajustesClass("Ajustes de comida", R.drawable.comidaajustes));
+        items.add(new ajustesClass("Notificaciones", R.drawable.notifcacion));
+        items.add(new ajustesClass("Ajustes de comida", R.drawable.ajustes));
         items.add("Soporte");
-        items.add(new ajustesClass("Contáctanos", R.drawable.ic_contactar));
-        items.add(new ajustesClass("Preguntas frecuentes", R.drawable.ic_legal));
+        items.add(new ajustesClass("Contáctanos", R.drawable.informe));
+        items.add(new ajustesClass("Preguntas frecuentes", R.drawable.frecuentes));
 
         ajustesAdapter adapter = new ajustesAdapter(items, item -> {
             if (item instanceof ajustesClass) {

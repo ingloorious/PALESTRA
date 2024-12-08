@@ -19,18 +19,18 @@ public class Registro extends AppCompatActivity {
 
     EditText nombre, correo, telefono, password;
     Button registro;
-    FirebaseAuth mAuth; // Instancia de FirebaseAuth
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
 
-        // Inicializar vistas
+
         nombre = findViewById(R.id.txtCorreo);
         correo = findViewById(R.id.txtCorreo);
         telefono = findViewById(R.id.txtName);
-        password = findViewById(R.id.txtContra); // Asegúrate de agregar el campo en el diseño XML
+        password = findViewById(R.id.txtContra);
         registro = findViewById(R.id.btnSiguiente);
 
         // Inicializar FirebaseAuth
@@ -46,6 +46,7 @@ public class Registro extends AppCompatActivity {
 
                 if (validateInputs(email, pass, name)) {
                     registerUser(email, pass);
+                    finish();
                 }
             }
         });

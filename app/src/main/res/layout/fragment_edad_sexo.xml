@@ -7,7 +7,7 @@
     android:padding="16dp"
     android:gravity="center">
 
-    <!-- Etiqueta para el NumberPicker de Altura -->
+
     <TextView
         android:id="@+id/txtAltura"
         android:layout_width="wrap_content"
@@ -19,7 +19,7 @@
         android:textColor="#000000"
         android:textStyle="italic"/>
 
-    <!-- NumberPicker para la Altura -->
+
     <android.widget.NumberPicker
         android:id="@+id/edad"
         android:layout_width="wrap_content"
@@ -27,7 +27,7 @@
         android:layout_gravity="center"
         android:value="175" />
 
-    <!-- Etiqueta para el NumberPicker de Peso -->
+
     <TextView
         android:id="@+id/txtPeso"
         android:layout_width="wrap_content"
@@ -38,7 +38,7 @@
         android:textSize="18sp"
         style="@style/narcissistStyle"/>
 
-    <!-- RadioGroup para el Sexo -->
+
     <RadioGroup
         android:id="@+id/sexo"
         android:layout_width="wrap_content"
@@ -58,9 +58,9 @@
             android:layout_height="wrap_content"
             android:text="Femenino" />
 
-    </RadioGroup> <!-- Aquí estaba el problema, falta el cierre de la etiqueta RadioGroup -->
+    </RadioGroup>
 
-    <!-- Botón para continuar -->
+
     <Button
         android:id="@+id/btnContinuar"
         android:layout_width="250dp"

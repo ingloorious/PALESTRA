@@ -29,7 +29,7 @@ public class notificacionClass extends Fragment {
 
 
     public notificacionClass() {
-        // Required empty public constructor
+
     }
 
 

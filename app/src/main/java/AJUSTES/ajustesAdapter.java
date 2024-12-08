@@ -16,7 +16,7 @@ import java.util.List;
 
 public class ajustesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private final List<Object> items; // Lista mixta de ajustes y encabezados
+    private final List<Object> items;
     private final OnAjusteClickListener listener;
 
     private static final int VIEW_TYPE_HEADER = 0;
@@ -28,7 +28,7 @@ public class ajustesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         this.listener = listener;
     }
 
-    // Interfaz para manejar clics en los elementos de ajuste
+
     public interface OnAjusteClickListener {
         void onAjusteClick(ajustesClass item);
     }
@@ -36,9 +36,9 @@ public class ajustesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public int getItemViewType(int position) {
         if (items.get(position) instanceof String) {
-            return VIEW_TYPE_HEADER; // Encabezado
+            return VIEW_TYPE_HEADER;
         } else {
-            return VIEW_TYPE_ITEM; // Elemento de ajuste
+            return VIEW_TYPE_ITEM;
         }
     }
 
@@ -57,10 +57,9 @@ public class ajustesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof HeaderViewHolder) {
-            // Configura el encabezado
             String headerTitle = (String) items.get(position);
             HeaderViewHolder headerHolder = (HeaderViewHolder) holder;
-            headerHolder.headerTitle.setText(headerTitle); // Establece el texto del encabezado
+            headerHolder.headerTitle.setText(headerTitle);
         } else if (holder instanceof AjusteViewHolder) {
             // Configura el elemento de ajuste
             ajustesClass ajuste = (ajustesClass) items.get(position);
@@ -69,12 +68,12 @@ public class ajustesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             ajusteHolder.icono.setImageResource(ajuste.getIcono());
             ajusteHolder.titulo.setText(ajuste.getTitulo());
 
-            // Configura el evento onClick del elemento de ajuste
+
             ajusteHolder.titulo.setOnClickListener(v -> {
                 Toast.makeText(holder.itemView.getContext(),
                         "Título pulsado: " + ajuste.getTitulo(),
                         Toast.LENGTH_SHORT).show();
-                listener.onAjusteClick(ajuste); // Llama al listener
+                listener.onAjusteClick(ajuste);
             });
         }
     }
@@ -84,7 +83,7 @@ public class ajustesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return items.size();
     }
 
-    // ViewHolder para encabezados
+
     static class HeaderViewHolder extends RecyclerView.ViewHolder {
         TextView headerTitle;
 
@@ -94,7 +93,7 @@ public class ajustesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
-    // ViewHolder para elementos de ajuste
+
     static class AjusteViewHolder extends RecyclerView.ViewHolder {
         ImageView icono;
         TextView titulo;

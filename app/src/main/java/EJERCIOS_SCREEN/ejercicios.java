@@ -107,7 +107,6 @@ public class ejercicios extends AppCompatActivity {
 
 
 
-        // Crea el adaptador y establece el ViewPager
         adapter = new adaptadorEjercicios(ejerciciosList);
         viewPager.setAdapter(adapter);
     }

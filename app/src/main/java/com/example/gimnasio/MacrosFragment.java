@@ -47,7 +47,6 @@ public class MacrosFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                // Cambiar la altura del fragmentContainerView para que ocupe todo el espacio restante
                 fragmentContainerView.setVisibility(View.VISIBLE);
                 ViewGroup.LayoutParams params = fragmentContainerView.getLayoutParams();
                 params.height = ViewGroup.LayoutParams.MATCH_PARENT;

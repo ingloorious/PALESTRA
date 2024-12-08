@@ -7,8 +7,6 @@ public class calculadora {
   String sexo , frecuenciaEntrenamiento , nivelActividad , objetivo;
   float altura;
 
-  double caloriaDiarias ,grasa ,carbohidratos , proteinas ;
-
 
   public calculadora(int edad, int peso, String sexo, String frecuenciaEntrenamiento, String nivelActividad, String objetivo, float altura) {
     this.edad = edad;
@@ -53,7 +51,6 @@ public class calculadora {
         caloriasDiarias += caloriasDiarias * 0.2;  // Añadir un 20% para ganar músculo
       }
 
-      // Verificación de un rango razonable para las calorías diarias
       if (caloriasDiarias < 1000 || caloriasDiarias > 4000) {
         System.out.println("Advertencia: Calorías diarias fuera de rango: " + caloriasDiarias);
       }

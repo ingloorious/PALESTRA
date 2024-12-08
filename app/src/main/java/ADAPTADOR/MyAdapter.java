@@ -8,9 +8,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.gimnasio.R;
+
 import java.util.List;
 
 import EJERCIOS_SCREEN.ejercicios;
@@ -19,11 +22,11 @@ import EJERCIOS_SCREEN.excerciseClase;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     private final List<Item> items;
-    private final Context context; // Añadir el contexto aquí
+    private final Context context;
 
-    // Constructor del adaptador
+
     public MyAdapter(Context context, List<Item> items) {
-        this.context = context; // Guardar el contexto recibido
+        this.context = context;
         this.items = items;
     }
 
@@ -60,10 +63,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         holder.textView3.setText(item.getText3());
 
         holder.myButton.setOnClickListener(v -> {
-            // Crear el Intent para abrir la nueva actividad
-            Intent intent = new Intent(context, ejercicios.class); // Cambia excerciseClase por tu actividad
+
+            Intent intent = new Intent(context, ejercicios.class);
             intent.putExtra("item_id", item.getText1());
-            intent.putExtra("ejercicioTipo", item.getText2());// Pasar datos al Intent si es necesario
+            intent.putExtra("ejercicioTipo", item.getText2());
             context.startActivity(intent); // Usa el contexto aquí
         });
     }
@@ -73,7 +76,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         return items.size();
     }
 
-    // Clase interna para manejar los datos de cada elemento
     public static class Item {
         private final int imageResId;
         private final String text1;
