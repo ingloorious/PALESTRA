@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Altura (cm)"
+        android:textColor="@color/Rojo"
         android:textSize="18sp"
         android:layout_marginBottom="8dp"
         style="@style/narcissistStyle"/>
@@ -28,6 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Peso (kg)"
+        android:textColor="@color/Rojo"
         android:textSize="18sp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp"

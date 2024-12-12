@@ -134,24 +134,24 @@ public class formularioAniadirEntrenoClase extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
-                repesCombo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        if (i > 0) {
-                            String textActualizado = panelInfo.getText().toString();
-                            repes = repesCombo.getSelectedItem().toString();
+        repesCombo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i > 0) {
+                    String textActualizado = panelInfo.getText().toString();
+                    repes = repesCombo.getSelectedItem().toString();
 
-                            if (kilos.getText().toString() != "") {
-                                pesoSeleccionado = kilos.getText().toString();
+                    if (kilos.getText().toString() != "") {
+                        pesoSeleccionado = kilos.getText().toString();
 
-                            }
-                        }
                     }
+                }
+            }
 
-                    @Override
-                    public void onNothingSelected(AdapterView<?> adapterView) {
-                    }
-                });
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
         ;
 
 
@@ -208,6 +208,7 @@ public class formularioAniadirEntrenoClase extends AppCompatActivity {
                 }
 
                 try {
+                    serieNumero = numSeriesCombo.getSelectedItem().toString();
                     guardarLista(rutina, nameEjercicio, pesoSeleccionado, repes, serieNumero);
                 } catch (NumberFormatException e) {
                     Toast.makeText(formularioAniadirEntrenoClase.this, "Por favor, ingrese números válidos.", Toast.LENGTH_SHORT).show();
@@ -260,8 +261,8 @@ public class formularioAniadirEntrenoClase extends AppCompatActivity {
                             .set(new entrenamiento(rutina, fechaConcatenada ,listaEjercicios))
                             .addOnSuccessListener(aVoid -> {
                                 Toast.makeText(formularioAniadirEntrenoClase.this, "Datos guardados correctamente.", Toast.LENGTH_SHORT).show();
-                                adapt.adaptador.notifyDataSetChanged();
-
+                                //adapt.adaptador.notifyDataSetChanged();
+                                finish();
                             })
                             .addOnFailureListener(e -> {
                                 Toast.makeText(formularioAniadirEntrenoClase.this, "Error al guardar los datos", Toast.LENGTH_SHORT).show();

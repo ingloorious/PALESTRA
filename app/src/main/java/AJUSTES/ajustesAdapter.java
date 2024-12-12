@@ -70,9 +70,6 @@ public class ajustesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
 
             ajusteHolder.titulo.setOnClickListener(v -> {
-                Toast.makeText(holder.itemView.getContext(),
-                        "Título pulsado: " + ajuste.getTitulo(),
-                        Toast.LENGTH_SHORT).show();
                 listener.onAjusteClick(ajuste);
             });
         }

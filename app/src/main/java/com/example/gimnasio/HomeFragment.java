@@ -43,7 +43,7 @@ public class HomeFragment extends Fragment {
         items.add(new MyAdapter.Item(R.drawable.chest, "6 días", "PECHO", "EQUIPAMIENTO GIMNASIO"));
         items.add(new MyAdapter.Item(R.drawable.back, "5 días", "ESPALDA", "EQUIPAMIENTO GIMNASIO"));
         items.add(new MyAdapter.Item(R.drawable.legs, "4 días", "PIERNA", "EQUIPAMIENTO GIMNASIO"));
-        items.add(new MyAdapter.Item(R.drawable.arms, "3 días", "BRAZOS", "EQUIPAMIENTO GIMNASIO"));
+        items.add(new MyAdapter.Item(R.drawable.arms, "3 días", "BRAZO", "EQUIPAMIENTO GIMNASIO"));
 
 
         adapter = new MyAdapter(requireContext(), items);

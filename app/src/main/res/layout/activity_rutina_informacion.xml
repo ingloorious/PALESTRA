@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="4dp"
-        android:title="Ajustes"
+        android:title="Informacion Rutina"
         app:titleTextColor="@color/white"
         app:titleMargin="0dp" />
 
@@ -29,11 +29,12 @@
 
             <TextView
                 android:id="@+id/txtRutinaNombre"
+                style="@style/narcissistStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:text="Nombre de la rutina"
-                android:textColor="@color/black"
+                android:textColor="@color/Rojo"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -43,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:text="Fecha de la rutina"
-                android:textColor="@color/black"
+                android:textColor="@color/Rojo"
                 android:textSize="16sp" />
 
             <TextView
@@ -51,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:text="Ejercicios:"
-                android:textColor="@color/black"
+                android:textColor="@color/Rojo"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 

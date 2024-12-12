@@ -9,7 +9,8 @@
         android:id="@+id/tvNumeroSerie"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
+        android:textColor="@color/Rojo"
+        style="@style/narcissistStyle"
         android:layout_weight="1"
         android:text="Serie 1"
         android:textSize="14sp" />
@@ -18,7 +19,8 @@
         android:id="@+id/tvPeso"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
+        android:textColor="@color/Rojo"
+        style="@style/narcissistStyle"
         android:layout_weight="1"
         android:text="Peso"
         android:textSize="14sp" />
@@ -27,7 +29,8 @@
         android:id="@+id/tvRepeticiones"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
+        android:textColor="@color/Rojo"
+        style="@style/narcissistStyle"
         android:layout_weight="1"
         android:text="Repeticiones"
         android:textSize="14sp" />

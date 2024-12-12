@@ -23,6 +23,8 @@ import AJUSTES.comidasAjustes.comidaAjustesClase;
 import AJUSTES.contacto.contactoClase;
 import AJUSTES.notificaciones.notificacionClass;
 import AJUSTES.pantallasClase.informacion_personal;
+import AJUSTES.preguntasFRECUENTES.preguntasFrecuentesClase;
+import RECOGER_DATOS_MACROS.frecuenciaEntreno;
 import RECOGER_DATOS_MACROS.nivelActividad;
 
 
@@ -100,7 +102,13 @@ public class AjustesFragment extends Fragment {
                 transaction.replace(R.id.frame_layout, new contactoClase());
                 transaction.addToBackStack(null);
                 transaction.commit();
-            }
+            }else if("Preguntas frecuentes".equals(ajuste.getTitulo())) {
+
+                    FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                    transaction.replace(R.id.frame_layout, new preguntasFrecuentesClase());
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
 
 
             }

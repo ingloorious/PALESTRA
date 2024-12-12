@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <!-- Toolbar sin padding -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -14,37 +15,45 @@
         app:titleMargin="0dp"
         app:titleTextColor="@color/white" />
 
+
     <LinearLayout
-        android:id="@+id/linearAltura"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <TextView
-            android:id="@+id/txtAlt"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/linearAltura"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:fontFamily="sans-serif"
-            android:text="Activar notificaciones"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            android:textStyle="bold|italic" />
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            <TextView
+                android:id="@+id/txtAlt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="sans-serif"
+                android:text="Activar notificaciones"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:textStyle="bold|italic" />
 
-        <Switch
-            android:id="@+id/switchNotis"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="end" />
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
+            <Switch
+                android:id="@+id/switchNotis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end" />
+
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

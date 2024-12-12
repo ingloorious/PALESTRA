@@ -16,7 +16,7 @@
         android:fontFamily="sans-serif-black"
         android:text="Edad"
         android:textSize="18sp"
-        android:textColor="#000000"
+        android:textColor="@color/Rojo"
         android:textStyle="italic"/>
 
 
@@ -35,6 +35,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp"
         android:text="Sexo"
+        android:textColor="@color/Rojo"
         android:textSize="18sp"
         style="@style/narcissistStyle"/>
 

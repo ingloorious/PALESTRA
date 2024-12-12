@@ -9,11 +9,12 @@
     <TextView
         android:id="@+id/tvNombreEjercicio"
         android:layout_width="match_parent"
-        android:textColor="@color/black"
+        android:textColor="@color/Rojo"
         android:layout_height="wrap_content"
         android:text="Nombre del ejercicio"
         android:textSize="16sp"
         android:textStyle="bold"
+        style="@style/narcissistStyle"
         android:layout_marginBottom="4dp" />
 
     <androidx.recyclerview.widget.RecyclerView

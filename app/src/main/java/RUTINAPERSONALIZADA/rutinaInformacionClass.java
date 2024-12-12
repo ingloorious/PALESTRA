@@ -36,8 +36,8 @@ public class rutinaInformacionClass extends AppCompatActivity {
         fecha = findViewById(R.id.txtRutinaFecha);
         rutina = findViewById(R.id.txtRutinaNombre);
 
-        fecha.setText(rutinaFecha);
-        rutina.setText(rutinaFecha);
+        fecha.setText("Fecha : " +rutinaFecha);
+        rutina.setText("Rutina : " +rutinaNombre);
 
         ArrayList<ejercicio> ejercicios = intent.getParcelableArrayListExtra("series");
 
@@ -53,7 +53,7 @@ public class rutinaInformacionClass extends AppCompatActivity {
 
 
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("Notificaciones");
+            getSupportActionBar().setTitle("Información rutina");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
 
